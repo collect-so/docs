@@ -4,20 +4,19 @@ sidebar_position: 6
 
 # Search 
 
-## Documentation: Filtering and Searching Records in Our Database Solution
-
 Collect offers powerful filtering and searching capabilities to help you retrieve the exact records you need based on specific criteria. \Below, we will explain the functionality and options available for filtering and searching records, along with multiple examples for each search operation.
 
 ### Supported Search Operations
 
-The `parsePropertyParam` function supports various search operations, enabling you to apply filters based on different conditions. The following search operations are available:
+Collect supports various search operations, enabling you to apply filters based on different conditions. The following search operations are available:
 
-1. `MATCH` and `EXACT_MATCH`: Perform exact or partial matching of property values with the given input.
-2. **RANGE:** Filter property values that fall within a specified range.
-3. **EXCLUDE:** Exclude records with property values matching the given input.
-4. **EXACT_EXCLUDE:** Exclude records with exact property values matching the given input.
-5. **EXCLUDE_RANGE:** Exclude records with property values falling within a specified range.
-6. **LT, LE, GT, and GE:** Perform comparisons (less than, less than or equal to, greater than, greater than or equal to) with numeric property values.
+1. `MATCH`: Perform partial matching of property values with the given input. 
+2. `EXACT_MATCH`: Perform exact matching of property values with the given input.
+3. `EXCLUDE`: Exclude records with property values matching the given input.
+4. `EXACT_EXCLUDE`: Exclude records with exact property values matching the given input.
+5. `RANGE`: Filter property values that fall within a specified range.
+6. `EXCLUDE_RANGE`: Exclude records with property values falling within a specified range.
+7. `LT`, `LE`, `GT`, and `GE`: Perform comparisons (less than, less than or equal to, greater than, greater than or equal to) with numeric property values.
 
 ### Request Body (POST Request)
 
