@@ -37,8 +37,14 @@
 
 .footer--dark {
   --ifm-footer-background-color: #000;
+  border-top: 1px solid var(--ifm-toc-border-color);
+}
+
+.navbar {
+  border-bottom: 1px solid var(--ifm-toc-border-color);
 }
 
 html[data-theme='dark'] {
-  --ifm-background-color: #000
+  --ifm-background-color: #000;
+  --ifm-toc-border-color: #111111;
 }
