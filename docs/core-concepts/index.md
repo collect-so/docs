@@ -3,18 +3,7 @@ sidebar_position: 1
 ---
 # Intro
 
-Collect serves two primary objectives:
-
-1. To significantly reduce costs in rapidly changing API development requirements, especially in startups where time 
-matters. It does this by using semi-strong typed graph structures to make data normalization completely automated. 
-It also lets you build powerful, fast and reliable APIs by mapping data to instantly assigned endpoints.
-
-2. To consolidate meaningful data into a singular repository, providing a unified platform
-for both API development and granting accessibility to developers, data analysts, sales managers, and decision-makers. 
-This platform offers a dashboard where collected data can be comprehensively interpreted to cater to diverse business needs.
-
-Both of these objectives are realized through several essential components integrated into Collect's core: 
-
+In this documentation section, we'll explore the fundamental concepts and technical solutions behind Collect.
 ## Storage System
 This encompasses everything you need to understand about how Collect manages data behind the scenes.
 
