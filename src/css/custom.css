@@ -32,7 +32,7 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 
   --ifm-navbar-background-color: #000;
-
+  --ifm-code-background: #072a28 !important;
 }
 
 .footer--dark {
