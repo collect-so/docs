@@ -6,6 +6,10 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
   title: 'Collect',
   tagline: 'Instantly turn any data into API',
   favicon: 'img/favicon.ico',
@@ -63,7 +67,10 @@ const config = {
       themeConfig: {
         colorMode: {
           defaultMode: 'dark',
-        }
+        },
+        mermaid: {
+          theme: {light: 'neutral', dark: 'forest'},
+        },
       },
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',

@@ -1,19 +1,30 @@
 ---
 sidebar_position: 1
 ---
-
 # Introduction
+
+:::info
+
+Please bear in mind that Collect is actively under development. If you encounter any issues while using it, we kindly 
+request that you notify us through any available channels or contact us directly at 
+[artemiy@collect.so](mailto:artemiy@collect.so).
+
+:::
+
+
 
 Welcome to Collect, a powerful all-in-one data-warehouse and API-first solution that designed to streamline and 
 improve data management to meet the complex data storage needs of modern applications and data-analysis challenges.
 
-Collect allows to efficiently store and retrieve data
-without the need for complex processes like normalizations, type definitions, scheming, or migrations. It ensures high 
-availability, making it suitable even for handling large datasets and ambitious projects.
+Collect allows to efficiently store and retrieve data without the need for complex processes like normalizations, type 
+definitions, scheming, or migrations. It ensures high availability, making it suitable even for handling large datasets
+and ambitious projects.
 
-Collect adopts an API-first approach, ensuring that every piece of data is readily accessible through robust,
+Collect ensures that every piece of data is readily accessible through robust,
 dynamically generated APIs, instantly available to empower your applications. Additionally, Collect provides suggestions
 for data types and effectively maps them onto the graph, enhancing data management and retrieval capabilities.
+
+
 
 ## How this achieved?
 Collect achieves its flexibility through a unique hybrid approach to data storage by harnessing the capabilities of 
