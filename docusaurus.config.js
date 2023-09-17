@@ -95,8 +95,12 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Basic Concepts',
-                to: '/introduction/collect-basics',
+                label: 'Core Concepts',
+                to: '/category/core-concepts',
+              },
+              {
+                label: 'Getting Started',
+                to: '/getting-started/prerequisites',
               },
             ],
           },
