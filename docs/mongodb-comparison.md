@@ -137,7 +137,7 @@ const data = {
 }
 
 const options = {
-    dynamicTypings: true,
+    suggestTypes: true,
     generateLabels: true
 };
 
