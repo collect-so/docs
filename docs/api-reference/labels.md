@@ -2,5 +2,5 @@
 sidebar_position: 5
 ---
 
-# Labels
+# Labels API
 

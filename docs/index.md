@@ -16,14 +16,14 @@ request that you notify us through any available channels or contact us directly
 
 The core concept is simple: send <u>any data</u> to Collect, and effortlessly retrieve it as if a dedicated backend team had
 spent months building the APIs. Collect automatically normalizes and labels incoming data, mapping it seamlessly to
-[Dynamic APIs](/core-concepts/dynamic-apis).
+[Dynamic APIs](/docs/api-reference/dynamic-apis.md).
 
 Here are the steps to get started:
 
 1. Begin by creating a new project in the [Dashboard](https://app.collect.so).
 2. Once your project is set up, obtain an SDK Token from the Project page.
 3. Use this token to submit any data to either `https://api.collect.so/api/v1/collect/json` or
-   `https://api.collect.so/api/v1/collect/csv`. [Import API Documentation](/api-reference/import-and-export)
+   `https://api.collect.so/api/v1/collect/csv`. [Import API Documentation](/api-reference/import)
 4. Retrieve your data by making requests to `https://api.collect.so/api/v1/record/search`.
    [Search API Documentation](/api-reference/search)
 

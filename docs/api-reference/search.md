@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Search
+# Search API
 
 Collect offers powerful filtering and searching capabilities to help you retrieve the exact records you need based on specific criteria. \Below, we will explain the functionality and options available for filtering and searching records, along with multiple examples for each search operation.
 

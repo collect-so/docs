@@ -12,19 +12,13 @@ This encompasses everything you need to understand about how Collect manages dat
 - [Records](/core-concepts/records)
 - [Labels](/core-concepts/labels)
 - [Nesting](/core-concepts/nesting)
+- [Relations](/core-concepts/relations)
 
 
-## Search Architecture
+## Search
 A comprehensive guide on how data can be retrieved and matched, even in the most demanding or unconventional scenarios.
 
 - [Search](/core-concepts/search)
 
-## Data Import
-Find comprehensive information on importing existing data into Collect.
 
-- [Data Import](/core-concepts/data-import)
 
-## Dynamic APIs
-This forms the core of the developer experience, meticulously crafted by developers for developers.
-
-- [Dynamic APIs](/core-concepts/search)

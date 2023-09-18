@@ -3,10 +3,14 @@ sidebar_position: 3
 ---
 # Properties
 
+:::tip
+If you're seeking documentation for the Properties API, you can find it by following the link to [Properties API](/api-reference/properties).
+:::
+
 The fundamental unit of meaningful data in Collect is known as a **Property**. Despite its apparent simplicity and 
 modest size, the entire Collect core is built upon this architectural cornerstone. The underlying mechanisms within
 Collect map data to intersected properties, enabling the utilization of its robust features like 
-[Search](/core-concepts/search) and [Dynamic APIs](/core-concepts/dynamic-apis).
+[Search](/core-concepts/search) and [Dynamic APIs](/api-reference/dynamic-apis).
 
 **Property** serves as the critical link that interconnects diverse data within [Records](/core-concepts/records) 
 by matching properties and, importantly, by aligning [data types](/core-concepts/data-types) to create 
@@ -20,13 +24,13 @@ Here is a simplified diagram illustrating its appearance in a graph:
 
 ```mermaid
 graph LR
-    P0[Property:color] --> b((Matte black)) --> R0[Record:Jacket]
+    P0((Property:color)) --> b[Matte black] --> R0((Record:Jacket))
     
-    P0 --> d((Pale green)) --> R2[Record:House]
-    P1 --> j((Villa Vista)) --> R2
-    P1[Property:name] --> e((Porsche 911)) --> R1
-    P0 --> c((Dark grey)) --> R1[Record:SportCar]
-    P2[Property:maxSpeed] --> k((295)) --> R1
+    P0 --> d[Pale green] --> R2((Record:House))
+    P1 --> j[Villa Vista] --> R2
+    P1((Property:name)) --> e[Porsche 911] --> R1
+    P0 --> c[Dark grey] --> R1((Record:SportCar))
+    P2((Property:maxSpeed)) --> k[295] --> R1
 ```
 
 And this is how those **Records** can be represented in code:
@@ -77,7 +81,7 @@ Payload contains inconsistent values but can be converted to desired _number_ ty
 {
     name: "Combination",
     type: "number",
-    value: [4, 8, 15, 16, 23, 42]
+    value: [4, 8, 15, 16, 23, 42.0]
 }
 ```
 
