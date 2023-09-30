@@ -16,7 +16,7 @@ request that you notify us through any available channels or contact us directly
 
 The core concept is simple: send <u>any data</u> to Collect, and effortlessly retrieve it as if a dedicated backend team had
 spent months building the APIs. Collect automatically normalizes and labels incoming data, mapping it seamlessly to
-[Dynamic APIs](/docs/api-reference/dynamic-apis.md).
+[Dynamic APIs](/api-reference/dynamic-apis).
 
 Here are the steps to get started:
 
@@ -25,7 +25,7 @@ Here are the steps to get started:
 3. Use this token to submit any data to either `https://api.collect.so/api/v1/collect/json` or
    `https://api.collect.so/api/v1/collect/csv`. [Import API Documentation](/api-reference/import)
 4. Retrieve your data by making requests to `https://api.collect.so/api/v1/record/search`.
-   [Search API Documentation](/api-reference/search)
+   [Search API Documentation](/core-concepts/search)
 
 ## Let's start
 
