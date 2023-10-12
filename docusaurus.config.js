@@ -12,7 +12,7 @@ const config = {
   themes: ['@docusaurus/theme-mermaid'],
   title: 'Collect',
   tagline: 'Instantly turn any data into API',
-  favicon: 'favicon.svg',
+  favicon: 'img/favicon.svg',
 
   // Set the production url of your site here
   url: 'https://docs.collect.so',
