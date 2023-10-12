@@ -12,7 +12,7 @@ const config = {
   themes: ['@docusaurus/theme-mermaid'],
   title: 'Collect',
   tagline: 'Instantly turn any data into API',
-  favicon: 'img/favicon.ico',
+  favicon: 'favicon.svg',
 
   // Set the production url of your site here
   url: 'https://docs.collect.so',
@@ -73,7 +73,7 @@ const config = {
         },
       },
       // Replace with your project's social card
-      image: 'img/social-card.png',
+      image: 'img/og.png',
       navbar: {
         title: 'Collect Docs',
         logo: {
