@@ -16,7 +16,7 @@ Once signed in, you'll be directed to the dashboard. To start working with Colle
 
 - Click on the **Create Project** button to set up a new project. You might need to provide some basic information about your project, such as its name.
 
-![Create Project Button](../../static/img/create-project-screen.png "Highlighting the 'Create Project' Button")
+![Create Project Button](../../static/img/quick-start/create-project-screen.png "Highlighting the 'Create Project' Button")
 
 ## Step 3: Generate an API Token
 
@@ -24,11 +24,11 @@ After creating your project, you'll be taken to its details page. Here, you can 
 
 - Navigate to the **Api Keys** tab at the top of the page.
 
-![API Keys Tab](../../static/img/api-keys-screen.png "Navigating to the API Keys Tab")
+![API Keys Tab](../../static/img/quick-start/api-keys-screen.png "Navigating to the API Keys Tab")
 
 - Inside the Api Keys section, click on **Create** to generate a new API token.
 
-![Generate API Token](../../static/img/create-token-screen.png "Generating a New API Token")
+![Generate API Token](../../static/img/quick-start/create-token-screen.png "Generating a New API Token")
 
 - Copy the generated token. This token will be used to authenticate your SDK instances and allow them to interact with your Collect project.
 
