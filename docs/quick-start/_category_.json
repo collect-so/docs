@@ -1,0 +1,8 @@
+{
+  "label": "Quick start",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "This quick start guide is designed to introduce you to the fundamentals of the Collect SDK, from setup and installation to creating and fetching your first records. By following this guide, you'll learn the basic operations that Collect SDK supports, such as data manipulation and interaction with the Collect Dashboard. Whether you're aiming to integrate Collect into an existing project or starting a new one from scratch, this guide will provide the essential knowledge to get you up and running in no time."
+  }
+}
