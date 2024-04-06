@@ -38,7 +38,7 @@ import Collect from '@collect.so/javascript-sdk';
 const Collect = new Collect(
     COLLECT_SDK_TOKEN,
     {
-        url: 'http://localhost'
+        url: 'http://your-api-url'
     }
 );
 ```
