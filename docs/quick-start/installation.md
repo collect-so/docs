@@ -27,15 +27,15 @@ Once the package is installed, you can create an instance of the Collect SDK in 
 
 #### Option 1: Basic Initialization
 ```typescript
-import CollectSDK from '@collect.so/javascript-sdk';
+import Collect from '@collect.so/javascript-sdk';
 
-const Collect = new CollectSDK(COLLECT_SDK_TOKEN);
+const Collect = new Collect(COLLECT_SDK_TOKEN);
 ```
 #### Option 2: Initialization with Custom URL
 ```typescript
-import CollectSDK from '@collect.so/javascript-sdk';
+import Collect from '@collect.so/javascript-sdk';
 
-const Collect = new CollectSDK(
+const Collect = new Collect(
     COLLECT_SDK_TOKEN,
     {
         url: 'http://your-api-url'
