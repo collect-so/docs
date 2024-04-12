@@ -46,4 +46,4 @@ const Collect = new Collect(
 Replace `COLLECT_SDK_TOKEN` with your actual API token, which you can obtain from the Collect Dashboard.
 
 ## Next steps
-To make full use of the SDK, you'll need a valid API token. In the [next section](/quick-start/dashboard), Configuring Collect Dashboard, we'll guide you through the process of registering on the dashboard, creating a project, and generating your API token.
+To make full use of the SDK, you'll need a valid API token. In the [next section](/quick-start/configuring-dashboard), Configuring Collect Dashboard, we'll guide you through the process of registering on the dashboard, creating a project, and generating your API token.

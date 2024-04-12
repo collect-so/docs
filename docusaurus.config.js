@@ -11,6 +11,8 @@ const config = {
   },
   themes: ['@docusaurus/theme-mermaid'],
   title: 'Collect',
+  organizationName: 'Collect Software Inc',
+  projectName: 'Collect Docs',
   tagline: 'Instantly turn any data into API',
   favicon: 'img/favicon.svg',
 
