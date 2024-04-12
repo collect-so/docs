@@ -106,8 +106,8 @@ const config = {
                 to: '/category/core-concepts',
               },
               {
-                label: 'Getting Started',
-                to: '/getting-started/prerequisites',
+                label: 'Quick start',
+                to: '/quick-start/installation',
               },
             ],
           },
