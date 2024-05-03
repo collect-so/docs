@@ -11,7 +11,7 @@ The Collect SDK is designed to be straightforward and easy to set up. You start 
 ```javascript
 import CollectSDK from '@collect.so/javascript-sdk';
 
-const Collect = new CollectSDK('your_api_token_here', {
+const Collect = new CollectSDK('COLLECT_SDK_TOKEN', {
   url: 'https://api.yourbackend.com'
 });
 ```
