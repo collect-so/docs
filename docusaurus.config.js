@@ -104,12 +104,12 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Core Concepts',
-                to: '/category/core-concepts',
-              },
-              {
                 label: 'Quick start',
                 to: '/quick-start/installation',
+              },
+              {
+                label: 'Working with Collect SDK',
+                to: '/working-with-collect-sdk/collect-sdk-intro',
               },
             ],
           },
