@@ -59,8 +59,8 @@ console.log(createdAuthor);
 /*
 {
   data: {
-    _collect_id: 'generated_id',
-    _collect_label: 'author',
+    __id: 'generated_id',
+    __label: 'author',
     name: 'John Doe',
     email: 'john.doe@example.com'
   }
@@ -84,8 +84,8 @@ try {
   /*
   {
     data: {
-      _collect_id: 'generated_id',
-      _collect_label: 'author',
+      __id: 'generated_id',
+      __label: 'author',
       name: 'Jane Smith',
       email: 'jane.smith@example.com'
     }
@@ -136,14 +136,14 @@ console.log(createdAuthors);
 {
   data: [
     {
-      _collect_id: 'generated_id_1',
-      _collect_label: 'author',
+      __id: 'generated_id_1',
+      __label: 'author',
       name: 'Alice Johnson',
       email: 'alice.johnson@example.com'
     },
     {
-      _collect_id: 'generated_id_2',
-      _collect_label: 'author',
+      __id: 'generated_id_2',
+      __label: 'author',
       name: 'Bob Brown',
       email: 'bob.brown@example.com'
     }
@@ -169,14 +169,14 @@ try {
   {
     data: [
       {
-        _collect_id: 'generated_id_1',
-        _collect_label: 'author',
+        __id: 'generated_id_1',
+        __label: 'author',
         name: 'Charlie Green',
         email: 'charlie.green@example.com'
       },
       {
-        _collect_id: 'generated_id_2',
-        _collect_label: 'author',
+        __id: 'generated_id_2',
+        __label: 'author',
         name: 'David Blue',
         email: 'david.blue@example.com'
       }
