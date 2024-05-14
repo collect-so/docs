@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Configuring Collect Dashboard (2 mins)
+# Configuring Collect Dashboard
 
 In this section, we'll walk through the process of registering for Collect and generating an API token necessary for using the Collect SDK. This token is essential for authenticating your application's requests to the Collect backend.
 

@@ -1,8 +1,15 @@
 ---
 sidebar_position: 1
 ---
-# Introduction to Collect SDK (3-5 mins)
+# Introduction to Collect SDK
+:::note
 Welcome to the comprehensive guide on working with the Collect SDK. This section provides an overview of initializing the Collect SDK, a crucial first step for integrating Collect into your applications. Understanding the initialization process is key to effectively manage and interact with your data through Collect.
+:::
+
+## Table of Contents
+
+- [Installation](#initializing-collect-sdk)
+- [SDK Class Constructor](#constructor-parameters)
 
 ## Initializing Collect SDK
 
@@ -46,18 +53,18 @@ export type UserProvidedConfig = CommonUserProvidedConfig;
 
 ### Config Options
 
-- **url** (`string`): The simplest form of configuration, just providing the URL where the Collect backend is hosted.
+- `url` (`string`): The simplest form of configuration, just providing the URL where the Collect backend is hosted.
 
-- **host, port, protocol**: An alternative to `url`, providing a more granular way to define the connection parameters:
+- `host, port, protocol`: An alternative to `url`, providing a more granular way to define the connection parameters:
     - `host`: The domain name or IP address of the server.
     - `port`: The port number on which the server is listening.
     - `protocol`: The protocol used for the connection (e.g., `http`, `https`).
 
-- **httpClient** (`HttpClientInterface`): Optional. Specifies a custom HTTP client interface for making network requests. Useful for environments where default HTTP clients do not meet specific needs.
+- `httpClient` (`HttpClientInterface`): Optional. Specifies a custom HTTP client interface for making network requests. Useful for environments where default HTTP clients do not meet specific needs.
 
-- **timeout** (`number`): Optional. Defines a timeout period for each request in milliseconds.
+- `timeout` (`number`): Optional. Defines a timeout period for each request in milliseconds.
 
-- **validator** (`Validator`): Optional. Allows you to specify custom validation logic for outgoing data.
+- `validator` (`Validator`): Optional. Allows you to specify custom validation logic for outgoing data.
 
 ### When to Use Advanced Configuration
 
