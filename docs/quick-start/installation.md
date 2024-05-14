@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 ---
-# Installation (2 mins)
+# Installation
 Getting started with Collect SDK is straightforward. This section will guide you through installing the SDK and setting up your first SDK instance.
 
 ## Step 1: Install the Package

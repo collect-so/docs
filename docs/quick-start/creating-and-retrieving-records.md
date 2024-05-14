@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Creating and Retrieving Records with the SDK (5 mins)
+# Creating and Retrieving Records with the SDK
 In this section, we'll learn how to use the Collect SDK to create and retrieve simple data records. This guide assumes you have already initialized the SDK and obtained an API token as described in the previous sections. Here, we'll focus on utilizing the SDK to interact with your data, demonstrating how to define a data model, create a record, and then fetch it back.
 
 ## Objective
