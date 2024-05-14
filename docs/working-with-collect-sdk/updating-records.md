@@ -49,8 +49,8 @@ console.log(updatedAuthor);
 /*
 {
   data: {
-    _collect_id: 'author_id',
-    _collect_label: 'author',
+    __id: 'author_id',
+    __label: 'author',
     name: 'John Doe Updated',
     email: 'john.doe@example.com'
   }
@@ -70,8 +70,8 @@ try {
   /*
   {
     data: {
-      _collect_id: 'author_id',
-      _collect_label: 'author',
+      __id: 'author_id',
+      __label: 'author',
       name: 'Jane Doe Updated',
       email: 'jane.doe@example.com'
     }
@@ -92,8 +92,8 @@ console.log(updatedPost);
 /*
 {
   data: {
-    _collect_id: 'post_id',
-    _collect_label: 'post',
+    __id: 'post_id',
+    __label: 'post',
     created: '2023-01-02T00:00:00Z',
     title: 'Updated Blog Post Title',
     content: 'This is a new blog post content.',
@@ -116,8 +116,8 @@ try {
   /*
   {
     data: {
-      _collect_id: 'post_id',
-      _collect_label: 'post',
+      __id: 'post_id',
+      __label: 'post',
       created: '2023-01-02T00:00:00Z',
       title: 'Updated Title in Transaction',
       content: 'This is a new blog post content.',
@@ -141,21 +141,21 @@ To update multiple records, you can use a combination of `find` and `updateById`
 ```typescript
 const authorsToUpdate = await Author.find({ where: { name: 'John Doe' } });
 for (const author of authorsToUpdate.data) {
-  await Author.updateById(author._collect_id, { name: 'John Doe Updated' });
+  await Author.updateById(author.__id, { name: 'John Doe Updated' });
 }
 console.log(authorsToUpdate);
 /*
 {
   data: [
     {
-      _collect_id: 'author_id_1',
-      _collect_label: 'author',
+      __id: 'author_id_1',
+      __label: 'author',
       name: 'John Doe Updated',
       email: 'john.doe@example.com'
     },
     {
-      _collect_id: 'author_id_2',
-      _collect_label: 'author',
+      __id: 'author_id_2',
+      __label: 'author',
       name: 'John Doe Updated',
       email: 'john.doe@example.com'
     }
@@ -170,7 +170,7 @@ const postsToUpdate = await PostRepo.find({ where: { rating: { $lt: 5 } } });
 const transaction = await Collect.tx.begin();
 try {
   for (const post of postsToUpdate.data) {
-    await PostRepo.updateById(post._collect_id, { rating: 5 }, transaction);
+    await PostRepo.updateById(post.__id, { rating: 5 }, transaction);
   }
   await transaction.commit();
   console.log(postsToUpdate);
@@ -178,16 +178,16 @@ try {
   {
     data: [
       {
-        _collect_id: 'post_id_1',
-        _collect_label: 'post',
+        __id: 'post_id_1',
+        __label: 'post',
         created: '2023-01-02T00:00:00Z',
         title: 'Blog Post Title 1',
         content: 'This is a blog post content.',
         rating: 5
       },
       {
-        _collect_id: 'post_id_2',
-        _collect_label: 'post',
+        __id: 'post_id_2',
+        __label: 'post',
         created: '2023-01-03T00:00:00Z',
         title: 'Blog Post Title 2',
         content: 'This is another blog post content.',
@@ -236,16 +236,16 @@ try {
   /*
   {
     data: {
-      _collect_id: 'author_id',
-      _collect_label: 'author',
+      __id: 'author_id',
+      __label: 'author',
       name: 'Updated Author Name',
       email: 'john.doe@example.com'
     }
   }
   {
     data: {
-      _collect_id: 'post_id',
-      _collect_label: 'post',
+      __id: 'post_id',
+      __label: 'post',
       created: '2023-01-02T00:00:00Z',
       title: 'Updated Post Title',
       content: 'Updated content for the post.',

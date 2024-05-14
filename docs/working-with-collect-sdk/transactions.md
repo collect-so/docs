@@ -16,7 +16,7 @@ Transactions are a powerful feature in the Collect SDK that allow you to bundle 
 
 ### Why Use Transactions?
 
-While it's not mandatory to use transactions, they can significantly enhance the developer experience (DX) by providing a robust mechanism for handling complex operations. Transactions are particularly useful when you need to perform a series of operations that depend on each other. If any operation in the transaction fails, all preceding operations are rolled back, preventing partial updates that could lead to data inconsistencies.
+While it's not mandatory to use transactions, they can significantly enhance the developer experience by providing a robust mechanism for handling complex operations. Transactions are particularly useful when you need to perform a series of operations that depend on each other. If any operation in the transaction fails, all preceding operations are rolled back, preventing partial updates that could lead to data inconsistencies.
 
 ### Key Benefits of Transactions
 
@@ -122,7 +122,7 @@ try {
     transaction
   );
 
-  await Author.attach(author._collect_id, { model: 'post', _collect_id: post._collect_id }, transaction);
+  await Author.attach(author.__id, { model: 'post', __id: post.__id }, transaction);
 
   // Step 3: Commit the transaction if all operations succeed
   await transaction.commit();

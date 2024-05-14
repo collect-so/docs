@@ -14,7 +14,7 @@ In most cases, our records do not exist independently and separately but are int
 
 ### Understanding Relationships
 
-In Collect, relationships are established between records of different models. For example, an `Author` can be linked to multiple `Posts` through a `Blog`. This hierarchical structure can be managed using the `.attach()` and `.detach()` methods.
+In Collect, relationships are established between records of different or same models. For example, an `Author` can be linked to multiple `Posts` through a `Blog`. This hierarchical structure can be managed using the `.attach()` and `.detach()` methods.
 
 ### Creating Models
 
@@ -76,7 +76,7 @@ try {
     transaction
   );
 
-  await Blog.attach(blog._collect_id, { model: 'post', _collect_id: post._collect_id }, transaction);
+  await Blog.attach(blog.__id, { model: 'post', __id: post.__id }, transaction);
 
   await transaction.commit();
 
@@ -84,12 +84,12 @@ try {
   // Expected output:
   // Transaction committed successfully
   // Blog: {
-  //   _collect_id: 'some-id',
+  //   __id: 'some-id',
   //   title: 'Tech Blog',
   //   description: 'A blog about tech'
   // }
   // Post: {
-  //   _collect_id: 'some-id',
+  //   __id: 'some-id',
   //   created: '2024-01-01T00:00:00Z',
   //   title: 'First Post',
   //   content: 'This is the first post',
@@ -126,7 +126,7 @@ try {
   const existingBlog = await Blog.findOne({ where: { title: 'Tech Blog' } });
   const existingPost = await Post.findOne({ where: { title: 'First Post' } });
 
-  await Blog.detach(existingBlog.data._collect_id, { model: 'post', _collect_id: existingPost.data._collect_id }, transaction);
+  await Blog.detach(existingBlog.data.__id, { model: 'post', __id: existingPost.data.__id }, transaction);
 
   await transaction.commit();
 
@@ -134,12 +134,12 @@ try {
   // Expected output:
   // Transaction committed successfully
   // Blog: {
-  //   _collect_id: 'some-id',
+  //   __id: 'some-id',
   //   title: 'Tech Blog',
   //   description: 'A blog about tech'
   // }
   // Post: {
-  //   _collect_id: 'some-id',
+  //   __id: 'some-id',
   //   created: '2024-01-01T00:00:00Z',
   //   title: 'First Post',
   //   content: 'This is the first post',
@@ -194,10 +194,10 @@ try {
   );
 
   // Attach Post to Blog
-  await Blog.attach(blog._collect_id, { model: 'post', _collect_id: post._collect_id }, transaction);
+  await Blog.attach(blog.__id, { model: 'post', __id: post.__id }, transaction);
 
   // Attach Blog to Author
-  await Author.attach(author._collect_id, { model: 'blog', _collect_id: blog._collect_id }, transaction);
+  await Author.attach(author.__id, { model: 'blog', __id: blog.__id }, transaction);
 
   await transaction.commit();
 
@@ -205,17 +205,17 @@ try {
   // Expected output:
   // Transaction committed successfully
   // Author: {
-  //   _collect_id: 'some-id',
+  //   __id: 'some-id',
   //   name: 'Jane Doe',
   //   email: 'jane.doe@example.com'
   // }
   // Blog: {
-  //   _collect_id: 'some-id',
+  //   __id: 'some-id',
   //   title: 'Jane’s Tech Blog',
   //   description: 'Exploring the latest in tech'
   // }
   // Post: {
-  //   _collect_id: 'some-id',
+  //   __id: 'some-id',
   //   created: '2024-01-01T00:00:00Z',
   //   title: 'Understanding Graph Databases',
   //   content: 'This post dives into the features of graph databases...',
@@ -246,7 +246,7 @@ console.log(nestedQuery.data);
 // Expected output:
 // [
 //   {
-//     _collect_id: 'some-id',
+//     __id: 'some-id',
 //     name: 'Jane Doe',
 //     email: 'jane.doe@example.com',
 //   }
@@ -277,7 +277,7 @@ console.log(advancedNestedQuery.data);
 // Expected output:
 // [
 //   {
-//     _collect_id: 'some-id',
+//     __id: 'some-id',
 //     name: 'Jane Doe',
 //     email: 'jane.doe@example.com',
 //   }
@@ -300,14 +300,14 @@ console.log(blogPostsQuery.data);
 // Expected output:
 // [
 //   {
-//     _collect_id: 'some-id',
+//     __id: 'some-id',
 //     created: '2024-01-01T00:00:00Z',
 //     title: 'Understanding Graph Databases',
 //     content: 'This post dives into the features of graph databases...',
 //     rating: 5
 //   },
 //   {
-//     _collect_id: 'some-id',
+//     __id: 'some-id',
 //     created: '2024-01-01T00:00:00Z',
 //     title: 'Another Post',
 //     content: 'Another post content',
@@ -322,16 +322,16 @@ The `target` parameter in the `.attach()` and `.detach()` methods can take vario
 ```typescript
 // Using CollectRecordsArrayInstance
 const postsArray = await Post.find();
-await Blog.attach(blog._collect_id, postsArray.data, transaction);
+await Blog.attach(blog.__id, postsArray.data, transaction);
 
 // Using CollectRecord
 const postRecord = await Post.findOne({ where: { title: 'Understanding Graph Databases' } });
-await Blog.attach(blog._collect_id, postRecord.data, transaction);
+await Blog.attach(blog.__id, postRecord.data, transaction);
 
 // Using CollectRecordInstance
-await Blog.attach(blog._collect_id, postRecord.data, transaction);
+await Blog.attach(blog.__id, postRecord.data, transaction);
 
 // Using array of IDs
-const postIds = postsArray.data.map(post => post._collect_id);
-await Blog.attach(blog._collect_id, postIds, transaction);
+const postIds = postsArray.data.map(post => post.__id);
+await Blog.attach(blog.__id, postIds, transaction);
 ```

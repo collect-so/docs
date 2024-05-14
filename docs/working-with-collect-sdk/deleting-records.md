@@ -101,8 +101,8 @@ try {
 const deleteResponse = await Post.delete({
     where: {
         $OR: [
-            { _collect_id: 'post_id_1' },
-            { _collect_id: 'post_id_2' }
+            { __id: 'post_id_1' },
+            { __id: 'post_id_2' }
         ]
     }
 });
@@ -154,12 +154,12 @@ In this example, we'll delete an `Author` and ensure that any `Post` attached to
 const transaction = await Collect.tx.begin();
 try {
   // Step 1: Delete the author
-  const deleteAuthorResponse = await Author.delete({ where: { _collect_id: 'author_id' } }, transaction);
+  const deleteAuthorResponse = await Author.delete({ where: { __id: 'author_id' } }, transaction);
   
   // Step 2: Ensure related Post records are updated
   const relatedPosts = await Post.find({ where: { authorId: 'author_id' } }, transaction);
   for (const post of relatedPosts.data) {
-    await Post.delete({ where: { _collect_id: post._collect_id } }, transaction);
+    await Post.delete({ where: { __id: post.__id } }, transaction);
   }
 
   await transaction.commit();

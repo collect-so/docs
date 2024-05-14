@@ -46,14 +46,14 @@ console.log(authors);
 {
   data: [
     {
-      _collect_id: 'author_id_1',
-      _collect_label: 'author',
+      __id: 'author_id_1',
+      __label: 'author',
       name: 'John Doe',
       email: 'john.doe@example.com'
     },
     {
-      _collect_id: 'author_id_2',
-      _collect_label: 'author',
+      __id: 'author_id_2',
+      __label: 'author',
       name: 'Jane Smith',
       email: 'jane.smith@example.com'
     }
@@ -77,14 +77,14 @@ console.log(authors);
 {
   data: [
     {
-      _collect_id: 'author_id_3',
-      _collect_label: 'author',
+      __id: 'author_id_3',
+      __label: 'author',
       name: 'John Brown',
       email: 'john.brown@example.com'
     },
     {
-      _collect_id: 'author_id_4',
-      _collect_label: 'author',
+      __id: 'author_id_4',
+      __label: 'author',
       name: 'John Green',
       email: 'john.green@example.com'
     }
@@ -126,8 +126,8 @@ console.log(author);
 /*
 {
   data: {
-    _collect_id: 'author_id',
-    _collect_label: 'author',
+    __id: 'author_id',
+    __label: 'author',
     name: 'John Doe',
     email: 'john.doe@example.com'
   }
@@ -148,8 +148,8 @@ console.log(author);
 /*
 {
   data: {
-    _collect_id: 'author_id',
-    _collect_label: 'author',
+    __id: 'author_id',
+    __label: 'author',
     name: 'Jane Doe',
     email: 'jane.doe@example.com'
   }
@@ -189,8 +189,8 @@ console.log(author);
 /*
 {
   data: {
-    _collect_id: 'author_id',
-    _collect_label: 'author',
+    __id: 'author_id',
+    __label: 'author',
     name: 'John Doe',
     email: 'john.doe@example.com'
   }
@@ -208,8 +208,8 @@ console.log(author);
 /*
 {
   data: {
-    _collect_id: 'author_id',
-    _collect_label: 'author',
+    __id: 'author_id',
+    __label: 'author',
     name: 'John Doe',
     email: 'john.doe@example.com'
   }
@@ -255,9 +255,9 @@ try {
 
   const createdPost = await PostRepo.create(newPost, transaction);
 
-  await Author.attach(author.data._collect_id, {
+  await Author.attach(author.data.__id, {
     model: 'post',
-    recordId: createdPost.data._collect_id
+    recordId: createdPost.data.__id
   }, transaction);
 
   // Step 3: Find the created Post using a complex where condition
@@ -277,8 +277,8 @@ try {
   {
     data: [
       {
-        _collect_id: 'post_id',
-        _collect_label: 'post',
+        __id: 'post_id',
+        __label: 'post',
         created: '2023-01-02T00:00:00Z',
         title: 'New Blog Post',
         content: 'This is a new blog post content.',
