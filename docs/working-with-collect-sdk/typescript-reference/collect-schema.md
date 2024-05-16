@@ -8,7 +8,7 @@ The `CollectSchema` type is used to define the schema for a model in the Collect
 
 ### Type Definition
 ```typescript
-export type CollectSchema = Record<
+type CollectSchema = Record<
   string,
   {
     default?: CollectSchemaDefaultValue;
