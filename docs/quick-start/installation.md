@@ -23,26 +23,12 @@ yarn add @collect.so/javascript-sdk
 The Collect SDK is lightweight, coming in at just 5.1kB gzipped. Learn more about the package size [here](https://pkg-size.dev/@collect.so%2Fjavascript-sdk).
 
 ## Step 2: Initialize the SDK
-Once the package is installed, you can create an instance of the Collect SDK in your project. You have a couple of options depending on whether you need to specify a custom URL:
-
-### Option 1: Basic Initialization
+Once the package is installed, you can create an instance of the Collect SDK in your project.
 ```typescript
 import Collect from '@collect.so/javascript-sdk';
 
 const Collect = new Collect(COLLECT_SDK_TOKEN);
 ```
-### Option 2: Initialization with Custom URL
-```typescript
-import Collect from '@collect.so/javascript-sdk';
-
-const Collect = new Collect(
-    COLLECT_SDK_TOKEN,
-    {
-        url: 'http://your-api-url'
-    }
-);
-```
-
 Replace `COLLECT_SDK_TOKEN` with your actual API token, which you can obtain from the Collect Dashboard.
 
 ## Next steps
