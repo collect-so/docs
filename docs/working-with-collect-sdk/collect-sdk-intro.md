@@ -29,8 +29,8 @@ The CollectSDK constructor accepts two parameters:
 - `token` (`string`): This is the API token issued from the Collect Dashboard. It is essential for authenticating your application's requests to the Collect API.
 - `config` (`UserProvidedConfig`): This parameter allows for advanced configuration of the SDK to specify how it connects to the backend.
 
-### Understanding `UserProvidedConfig`
-The UserProvidedConfig provides detailed control over how the SDK interacts with your backend. It consists of the following structure:
+### Understanding `UserProvidedConfig` (currently not available)
+This feature is currently unavailable and will be available soon. The UserProvidedConfig provides detailed control over how the SDK interacts with your backend. It consists of the following structure:
 
 ```typescript
 
