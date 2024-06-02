@@ -63,13 +63,11 @@ const queryWithAnd = await Collect.records.find('author', {
 ```
 
 ```typescript
-// Basic example with $AND
+// Basic example without $AND
 const queryWithAnd = await Collect.records.find('author', {
   where: {
-    $AND: [
-      { name: { $startsWith: 'Jane' } },
-      { email: { $contains: '@example.com' } }
-    ]
+    name: { $startsWith: 'Jane' },
+    email: { $contains: '@example.com' }
   }
 });
 ```
@@ -158,7 +156,6 @@ const queryNotFalse = await Collect.records.find('author', {
     married: { $not: false }
   }
 });
-// Finds posts created before January 1, 2024
 ```
 
 ### Datetime Operators
