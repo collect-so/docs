@@ -33,7 +33,18 @@ Finding labels with specific criteria:
 ```typescript
 const labelSearchCriteria = {
   where: {
-    model: 'author'
+    $OR: [
+        {
+            name: {
+                $startswith: 'author'
+            }
+        },
+        {
+            title: { 
+                $contains: 'Guide' 
+            } 
+        }
+    ]
   }
 };
 
@@ -42,9 +53,8 @@ const labels = await Collect.labels.find(labelSearchCriteria);
 // {
 //   success: true,
 //   data: {
-//     author: 1,
-//     post: 5,
-//     blog: 2
+//     author: 12,
+//     post: 14
 //   }
 // }
 ```
@@ -76,15 +86,11 @@ const properties = await Collect.properties.find(propertySearchCriteria);
 //       id: 'property_id_1',
 //       name: 'name',
 //       type: 'string',
-//       required: true,
-//       uniq: false
 //     },
 //     {
 //       id: 'property_id_2',
 //       name: 'email',
 //       type: 'string',
-//       required: true,
-//       uniq: true
 //     }
 //   ]
 // }
@@ -99,29 +105,6 @@ The `values` method retrieves the values of properties for a specific record.
 Retrieving property values for a property:
 ```typescript
 const propertyValues = await Collect.properties.values('property_id');
-// Expected output:
-// {
-//   success: true,
-//   data: {
-//     id: 'property_id',
-//     name: 'age',
-//     type: 'number',
-//     values: [25, 30, 35, 40],
-//     max: 40,
-//     min: 25
-//   }
-// }
-```
-
-### Finding Property by ID
-
-The `findById` method retrieves the details of a property using its ID.
-
-#### Example
-
-Retrieving a property by its ID:
-```typescript
-const propertyById = await Collect.properties.findById('property_id');
 // Expected output:
 // {
 //   success: true,
