@@ -5,27 +5,89 @@ sidebar_position: 1
 
 :::info
 
-Please bear in mind that Collect is actively under development. If you encounter any issues while using it, we kindly 
+If you encounter any issues while using it, we kindly 
 request that you notify us through any available channels or contact us directly at 
-[artemiy@collect.so](mailto:artemiy@collect.so).
+[hello@collect.so](mailto:hello@collect.so) or [@CollectAPI on X](https://x.com/collectAPI/)
 
 :::
 
 
 ## TL;DR
 
-The core concept is simple: send <u>any data</u> to Collect, and effortlessly retrieve it as if a dedicated backend team had
-spent months building the APIs. Collect automatically normalizes and labels incoming data, mapping it seamlessly to
-[Dynamic APIs](/api-reference/dynamic-apis).
+Collect simplifies data management by allowing you to send **any data** and retrieve it effortlessly as if a dedicated backend team had built your APIs. Collect automatically normalizes and labels incoming data.
 
-Here are the steps to get started:
+```typescript
+import Collect, { CollectModel } from '@collect.so/javascript-sdk';
 
-1. Begin by creating a new project in the [Dashboard](https://app.collect.so).
-2. Once your project is set up, obtain an SDK Token from the Project page.
-3. Use this token to submit any data to either `https://api.collect.so/api/v1/collect/json` or
-   `https://api.collect.so/api/v1/collect/csv`. [Import API Documentation](/api-reference/import)
-4. Retrieve your data by making requests to `https://api.collect.so/api/v1/record/search`.
-   [Search API Documentation](/core-concepts/search)
+const CollectInstance = new Collect("API_TOKEN")
+
+const UserRepo = new CollectModel(
+  'USER', 
+   {
+      name: { type: 'string' },
+      rating: { type: 'number' },
+   },
+  CollectInstance
+);
+
+await UserRepo.create({
+   name: "John Galt", 
+   rating: 100
+})
+
+await UserRepo.find({
+   where: {
+     rating: { $gte: 50 }
+   }
+})
+```
+
+```typescript
+import Collect, { CollectModel } from '@collect.so/javascript-sdk';
+
+const CollectInstance = new Collect("API_TOKEN")
+
+await CollectInstance.records.createMany({
+   label: "Products",
+   payload: [
+      { 
+         title: 'T-Shirt', 
+         price: 50,
+      },
+      {
+         title: 'Sneakers',
+         price: 135,
+         SIZE: [
+            {
+              uk: 8.5,
+              qty: 5 
+            }
+            // ...
+         ]
+      }
+   ]
+})
+
+await CollectInstance.records.find("Products", {
+  where: {
+    title: { $contains: "Sneakers" },
+    SIZE: {
+      uk: { $gte: 8, $lte: 9 },
+      qty: { $gt: 0 } 
+    } 
+  }
+})
+```
+
+### Getting Started:
+
+1. **Create a New Project**: Start by creating a new project in the [Dashboard](https://app.collect.so).
+2. **Obtain an SDK Token**: Once your project is set up, obtain an SDK Token from the Project page.
+3. **Submit Your Data**: Use the token to submit data to `https://api.collect.so/api/v1/collect/json` or `https://api.collect.so/api/v1/collect/csv`. [Import API Documentation](/api-reference/import)
+4. **Retrieve Your Data**: Access your data by making requests to `https://api.collect.so/api/v1/records/search`. [Search API Documentation](/core-concepts/search)
+
+This section introduces Collect's core capabilities while ensuring a straightforward path for users to start utilizing the platform.
+
 
 ## Let's start
 
