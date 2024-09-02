@@ -12,72 +12,7 @@ request that you notify us through any available channels or contact us directly
 :::
 
 
-## TL;DR
 
-Collect simplifies data management by allowing you to send **any data** and retrieve it effortlessly as if a dedicated backend team had built your APIs. Collect automatically normalizes and labels incoming data.
-
-```typescript
-import Collect, { CollectModel } from '@collect.so/javascript-sdk';
-
-const CollectInstance = new Collect("API_TOKEN")
-
-const UserRepo = new CollectModel(
-  'USER', 
-   {
-      name: { type: 'string' },
-      rating: { type: 'number' },
-   },
-  CollectInstance
-);
-
-await UserRepo.create({
-   name: "John Galt", 
-   rating: 100
-})
-
-await UserRepo.find({
-   where: {
-     rating: { $gte: 50 }
-   }
-})
-```
-
-```typescript
-import Collect, { CollectModel } from '@collect.so/javascript-sdk';
-
-const CollectInstance = new Collect("API_TOKEN")
-
-await CollectInstance.records.createMany({
-   label: "Products",
-   payload: [
-      { 
-         title: 'T-Shirt', 
-         price: 50,
-      },
-      {
-         title: 'Sneakers',
-         price: 135,
-         SIZE: [
-            {
-              uk: 8.5,
-              qty: 5 
-            }
-            // ...
-         ]
-      }
-   ]
-})
-
-await CollectInstance.records.find("Products", {
-  where: {
-    title: { $contains: "Sneakers" },
-    SIZE: {
-      uk: { $gte: 8, $lte: 9 },
-      qty: { $gt: 0 } 
-    } 
-  }
-})
-```
 
 ### Getting Started:
 
