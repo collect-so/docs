@@ -37,7 +37,7 @@ This data type has only one possible value: `null`.
 
 In essence, Collect supports all the data types that JSON does. However, when it comes to arrays, Collect can indeed 
 hold them as **Property** values, but it's important to note that it can only store <u>consistent values</u> within those 
-arrays. To learn more, check out the [Properties](/core-concepts/properties) section.
+arrays. To learn more, check out the [Properties](/advanced/properties) section.
 
 Here some valid examples:
 - `["apple", "banana", "carrot"]` - good

@@ -47,4 +47,4 @@ graph TB
 ```
 This structure is flexible and can be modified easily if necessary. You have the freedom to rearrange **Records** within the
 structure as needed. Additionally, Collect doesn't limit **Relations** to just child and parent connections.
-To learn more about different types of **Record** **Relations**, visit the [Relations documentation](/core-concepts/relations).
+To learn more about different types of **Record** **Relations**, visit the [Relations documentation](/basic-concepts/relations).

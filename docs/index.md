@@ -18,8 +18,8 @@ request that you notify us through any available channels or contact us directly
 
 1. **Create a New Project**: Start by creating a new project in the [Dashboard](https://app.collect.so).
 2. **Obtain an SDK Token**: Once your project is set up, obtain an SDK Token from the Project page.
-3. **Submit Your Data**: Use the token to submit data to `https://api.collect.so/api/v1/collect/json` or `https://api.collect.so/api/v1/collect/csv`. [Import API Documentation](/api-reference/import)
-4. **Retrieve Your Data**: Access your data by making requests to `https://api.collect.so/api/v1/records/search`. [Search API Documentation](/core-concepts/search)
+3. **Submit Your Data**: Use the token to submit data to `https://api.collect.so/api/v1/collect/json` or `https://api.collect.so/api/v1/collect/csv`. [Import API Documentation](/basic-concepts/records)
+4. **Retrieve Your Data**: Access your data by making requests to `https://api.collect.so/api/v1/records/search`. [Search API Documentation](/advanced/search)
 
 This section introduces Collect's core capabilities while ensuring a straightforward path for users to start utilizing the platform.
 
@@ -49,7 +49,7 @@ Collect serves two primary objectives:
    This platform offers a dashboard where collected data can be comprehensively interpreted to cater to diverse business needs.
 
 Both of these objectives are realized through several essential components crafted within Collect's core. Check out 
-the [Core Concepts](/core-concepts/) section.
+the [Core Concepts](/advanced/) section.
 
 ## How this achieved?
 Collect achieves its flexibility through a unique hybrid approach to data storage by harnessing the capabilities of 

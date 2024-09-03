@@ -28,30 +28,25 @@ await CollectInstance.records.createMany({
               uk: 8.5,
               qty: 5 
             }
-            // ...
          ]
       }
    ]
 })
-
   
 // Find it with granular precision and without any query language
-await CollectInstance.records.find("Products", {
-  where: {
-    title: { $contains: "Sneakers" },
-    SIZE: {
-      uk: { $gte: 8, $lte: 9 },
-      qty: { $gt: 0 } 
-    } 
-  }
+await CollectInstance.records.find("PRODUCT", {
+    where: {
+        title: { $contains: "Sneakers" },
+        SIZE: {
+            uk: { $gte: 8, $lte: 9 },
+            qty: { $gt: 0 } 
+        } 
+    }
 })
-
-// Done ✅
-// You are breathtaking
 ```
 
 --- 
-## Advanced example
+## Example with data modeling
 
 ```typescript
 import Collect, { CollectModel } from '@collect.so/javascript-sdk';
