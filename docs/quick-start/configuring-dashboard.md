@@ -2,8 +2,7 @@
 sidebar_position: 2
 ---
 
-# Configuring Collect Dashboard
-
+# Get API Token
 In this section, we'll walk through the process of registering for Collect and generating an API token necessary for using the Collect SDK. This token is essential for authenticating your application's requests to the Collect backend.
 
 ## Step 1: Sign Up for Collect
@@ -34,4 +33,4 @@ After creating your project, you'll be taken to its details page. Here, you can 
 
 **Important:** Keep your API token secure and do not share it publicly. This token provides access to your Collect project and the data within it.
 
-With your API token generated, you're now ready to initialize the Collect SDK in your application and begin creating and managing records programmatically. Proceed to the next section to learn about integrating the SDK into your project.
+With your API token generated, you're now ready to initialize the Collect SDK in your application and begin creating and managing Records programmatically. Proceed to the next section to learn about integrating the SDK into your project.

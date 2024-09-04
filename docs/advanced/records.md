@@ -4,7 +4,7 @@ sidebar_position: 3
 # Records
 
 :::tip
-If you're seeking documentation for the Records API, you can find it by following the link to [Records API](/api-reference/records).
+If you're seeking documentation for the Records API, you can find it by following the link to [Records API](/basic-concepts/records).
 :::
 
 In Collect, you have the capability to store meaningful data within **Records**. These **Records** consist of individual data 
@@ -45,7 +45,7 @@ const coffee = {
     notes: ["Nuts", "Caramel", "Lime"]
 }
 ```
-According to [Data Types](/core-concepts/data-types) this **Record** contains an array of values and other available value types.
+According to [Data Types](/advanced/data-types) this **Record** contains an array of values and other available value types.
 
 
 ## Complex data
@@ -57,5 +57,5 @@ of abstraction that exist between the raw data and our conceptual understanding 
 This is precisely why we have
 engineered Collect to have the capability to contain **Records** within other **Records**. While each individual **Record**
 remains distinct and accessible on its own, you retain the flexibility to structure your data in a manner that aligns
-with your thought process. Read further in the [Nesting](/core-concepts/nesting) section.
+with your thought process. Read further in the [Nesting](/advanced/nesting) section.
 

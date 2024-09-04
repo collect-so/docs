@@ -3,17 +3,12 @@ sidebar_position: 3
 ---
 # Properties
 
-:::tip
-If you're seeking documentation for the Properties API, you can find it by following the link to [Properties API](/api-reference/properties).
-:::
 
 The fundamental unit of meaningful data in Collect is known as a **Property**. Despite its apparent simplicity and 
-modest size, the entire Collect core is built upon this architectural cornerstone. The underlying mechanisms within
-Collect map data to intersected properties, enabling the utilization of its robust features like 
-[Search](/core-concepts/search) and [Dynamic APIs](/api-reference/dynamic-apis).
+modest size, the entire Collect core is built upon this architectural cornerstone.
 
-**Property** serves as the critical link that interconnects diverse data within [Records](/core-concepts/records) 
-by matching properties and, importantly, by aligning [data types](/core-concepts/data-types) to create 
+**Property** serves as the critical link that interconnects diverse data within [Records](/basic-concepts/records) 
+by matching properties and, importantly, by aligning [data types](/advanced/data-types) to create 
 connections using exact values.
 
 
@@ -60,7 +55,7 @@ Simple as that :)
 ## Considerations
 
 Real-world data can be considerably more intricate and may encompass all conceivable 
-[data types](/core-concepts/data-types) within a single **Record**. 
+[data types](/advanced/data-types) within a single **Record**. 
 However, rest assured that Collect adeptly manages this complexity without hesitation. Nevertheless, there are a few 
 important considerations you should be aware of:
 

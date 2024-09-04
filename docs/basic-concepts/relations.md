@@ -1,8 +1,10 @@
 ---
-sidebar_position: 9
+sidebar_position: 5
 ---
 
 # Relations
+
+
 :::note
 In most cases, our records do not exist independently and separately but are interconnected. The Collect SDK provides a way to define relationships between records and perform powerful queries that take these relationships into account. Linking records in Collect SDK allows you to establish these relationships, creating complex data structures where entities are interconnected. The methods `.attach()` and `.detach()` are used to manage these relationships.
 :::
