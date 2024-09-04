@@ -146,10 +146,15 @@ const config: Config = {
         },
         items: [
           {
-            href: 'https://github.com/collect-so/docs',
+            href: 'https://github.com/collect-so',
             label: 'GitHub',
             position: 'right'
+          },{
+            href: 'https://www.npmjs.com/package/@collect.so/javascript-sdk',
+            label: 'NPM Package 0.24.0',
+            position: 'right'
           }
+
         ]
       },
       footer: {

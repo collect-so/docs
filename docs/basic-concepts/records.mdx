@@ -10,13 +10,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@site/src/components/u
 In Collect, you have the capability to store meaningful data within **Records**. These **Records** consist of individual data
 pieces, each containing keys and their corresponding values - **Properties**.
 
-
-## How it works
-
-Consider a **Record** as a row in a database, with each **Property** being like a column. Though the inner implementation may involve
-complex graph structures, at its core, a **Record** is just an object that holds simple keys and values. You can think of
-it as a "dictionary", "map", "hash table", or "associative array" depending on your programming language or context.
-
 <div className="grid xl:grid-cols-5 grid-cols-1 gap-8">
   <div className="col-span-3">
     ### Typescript Definition
@@ -41,7 +34,7 @@ it as a "dictionary", "map", "hash table", or "associative array" depending on y
     ```
   </div>
   <div  className="xl:order-last col-span-2">
-    ### Example
+    ### Data Example
     ```javascript
     {
       "__id": "0191b44a-c815-7d40-bf48-b2d1727670d7",
@@ -62,6 +55,13 @@ it as a "dictionary", "map", "hash table", or "associative array" depending on y
     ```
   </div>
 </div>
+
+## How it works
+
+Consider a **Record** as a row in a database, with each **Property** being like a column. Though the inner implementation may involve
+complex graph structures, at its core, a **Record** is just an object that holds simple keys and values. You can think of
+it as a "dictionary", "map", "hash table", or "associative array" depending on your programming language or context.
+
 
 ---
 
@@ -159,6 +159,210 @@ it as a "dictionary", "map", "hash table", or "associative array" depending on y
 
 ---
 
+## Bulk Create Records
+
+
+<div className="grid xl:grid-cols-5 grid-cols-1 gap-8">
+  <div  className="xl:order-last col-span-2">
+    ### Endpoints
+    Create Records from JSON-like data:
+    ```ts
+    POST /api/v1/import/json
+    ```
+    Create Records from CSV-like data:
+    ```ts
+    POST /api/v1/import/csv
+    ```
+
+    :::info
+    Please note that the maximum payload size for a single request is 24MB.
+    :::
+
+  </div>
+  <div className="col-span-3">
+    This API allows you to push data and get it is automatically normalized, and labels are generated based on the structure of the payload. The API also suggests data types for each field within the payload. Currently, this API supports `JSON` and `CSV` formats, with upcoming support for `YAML`, `NDJSON`, `XML`, and `GEXF`.
+
+    This API facilitates the creation of records and their relationships using a Breadth-First Search (BFS) algorithm, ensuring accurate and efficient connections between data points.
+
+    ### Request
+    <Tabs defaultValue="sdk" >
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="sdk">SDK</TabsTrigger>
+        <TabsTrigger value="api">API</TabsTrigger>
+      </TabsList>
+      <TabsContent value="sdk">
+        ```typescript
+        await CollectInstance.records.createMany({
+          label: "PRODUCT",
+          payload: [
+            {
+              title: 'T-Shirt',
+              price: 50,
+            },
+            {
+              title: 'Sneakers',
+              price: 135,
+              // Nested Records `SIZE`
+              SIZE: [
+                {
+                  uk: 8.5,
+                  qty: 5
+                }
+              ]
+            }
+          ]
+        })
+        ```
+      </TabsContent>
+      <TabsContent value="api">
+        ```javascript
+        {
+          "label": "PRODUCT",
+          "payload": [
+            {
+              "title": 'T-Shirt',
+              "price": 50,
+            },
+            {
+              "title": 'Sneakers',
+              "price": 135,
+              // Nested Records `SIZE`
+              "SIZE": [
+                {
+                  "uk": 8.5,
+                  "qty": 5
+                }
+              ]
+            }
+          ]
+        }
+        ```
+      </TabsContent>
+    </Tabs>
+
+    ### Response
+
+    ```javascript
+    // CollectRecord[]
+    [
+      {
+        "__id": "0191b44a-c815-7d40-bf48-b2d1727670d5",
+        "__label": "PRODUCT",
+        "__proptypes": {
+          "title": "string",
+          "price": "number"
+        },
+        "title": 'T-Shirt',
+        "price": 50
+      },
+      {
+        "__id": "0191b44a-c815-7d40-bf48-b2d1727670d4",
+        "__label": "PRODUCT",
+        "__proptypes": {
+          "title": "string",
+          "price": "number"
+        },
+        "title": 'Sneakers',
+        "price": 135
+      },
+      {
+        "__id": "0191b44a-c815-7d40-bf48-b2d1727670d3",
+        "__label": "SIZE",
+        "__proptypes": {
+          "uk": "number",
+          "qty": "number"
+        },
+        "uk": 8.5,
+        "qty": 5
+      }
+    ]
+    ```
+
+  </div>
+</div>
+
+
+---
+
+## Search
+<div className="grid xl:grid-cols-5 grid-cols-1 gap-8">
+  <div  className="xl:order-last col-span-2">
+    ### Endpoints
+    Search from root:
+    ```ts
+    POST /api/v1/records/search
+    ```
+    Search from specific Record:
+    ```ts
+    POST /api/v1/records/:id/search
+    ```
+    :::info
+    Note: When searching from a specific Record, replace `:id` with the actual ID of the Record you want to start the search from.
+    :::
+  </div>
+  <div className="col-span-3">
+    To search for Records in Collect, use the `.find` method or make a POST request to the REST API endpoint.
+
+    ### Request
+
+    <Tabs defaultValue="sdk" >
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="sdk">SDK</TabsTrigger>
+        <TabsTrigger value="api">API</TabsTrigger>
+      </TabsList>
+      <TabsContent value="sdk">
+        ```typescript
+        await CollectInstance.records.find("PRODUCT", {
+          where: {
+            title: { $contains: "Sneakers" },
+            SIZE: {
+              uk: { $gte: 8, $lte: 9 },
+              qty: { $gt: 0 }
+            }
+          }
+        })
+        ```
+      </TabsContent>
+      <TabsContent value="api">
+        ```javascript
+        {
+          "labels": ["PRODUCT"],
+          "where": {
+            "title": { "$contains": "Sneakers" },
+            "SIZE": {
+              "uk": { "$gte": 8, "$lte": 9 },
+              "qty": { "$gt": 0 }
+            }
+          },
+          "limit": 1000,
+          "offset": 0
+        }
+        ```
+      </TabsContent>
+    </Tabs>
+
+    ### Response
+    ```javascript
+    // CollectRecord[]
+    [
+      {
+        "__id": "0191b44a-c815-7d40-bf48-b2d1727670d4",
+        "__label": "PRODUCT",
+        "__proptypes": {
+          "title": "string",
+          "price": "number"
+        },
+        "title": 'Sneakers',
+        "price": 135
+      },
+      // ...
+    ]
+    ```
+  </div>
+</div>
+
+---
+
 ## Get Record
 <div className="grid xl:grid-cols-5 grid-cols-1 gap-8">
   <div  className="xl:order-last col-span-2">
@@ -172,7 +376,7 @@ it as a "dictionary", "map", "hash table", or "associative array" depending on y
     :::
   </div>
   <div className="col-span-3">
-    To retrieve a Record in Collect, use the `.get` method or make a GET request to the REST API endpoint.
+    To retrieve a Record in Collect, use the `.findById` method or make a GET request to the REST API endpoint.
 
     ### Request
 
@@ -183,7 +387,9 @@ it as a "dictionary", "map", "hash table", or "associative array" depending on y
       </TabsList>
       <TabsContent value="sdk">
         ```typescript
-        const record = await Collect.records.get("0191b44a-c815-7d40-bf48-b2d1727670d7")
+        const record = await Collect.records.findById(
+          "0191b44a-c815-7d40-bf48-b2d1727670d7"
+        )
         ```
       </TabsContent>
       <TabsContent value="api">
@@ -198,20 +404,14 @@ it as a "dictionary", "map", "hash table", or "associative array" depending on y
     ```javascript
     // CollectRecord
     {
-      "__id": "0191b44a-c815-7d40-bf48-b2d1727670d7",
-      "__label": "ORDER",
+      "__id": "0191b44a-c815-7d40-bf48-b2d1727670d4",
+      "__label": "PRODUCT",
       "__proptypes": {
-        "items": "number",
-        "sum": "number",
-        "promocode": "string",
-        "confirmed": "boolean",
-        "createdAt": "datetime"
+        "title": "string",
+        "price": "number"
       },
-      "items": 5,
-      "sum": 232,
-      "promocode": "3heg09j",
-      "confirmed": true,
-      "createdAt": "2024-09-02T19:22:21+0000"
+      "title": 'Sneakers',
+      "price": 135
     }
     ```
   </div>
@@ -394,298 +594,6 @@ it as a "dictionary", "map", "hash table", or "associative array" depending on y
     ```
   </div>
 </div>
-
----
-
-## Search
-<div className="grid xl:grid-cols-5 grid-cols-1 gap-8">
-  <div  className="xl:order-last col-span-2">
-    ### Endpoints
-    Search from root:
-    ```ts
-    POST /api/v1/records/search
-    ```
-    Search from specific Record:
-    ```ts
-    POST /api/v1/records/:id/search
-    ```
-    :::info
-    Note: When searching from a specific Record, replace `:id` with the actual ID of the Record you want to start the search from.
-    :::
-  </div>
-  <div className="col-span-3">
-    To search for Records in Collect, use the `.search` method or make a POST request to the REST API endpoint.
-
-    ### Request
-
-    <Tabs defaultValue="sdk" >
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="sdk">SDK</TabsTrigger>
-        <TabsTrigger value="api">API</TabsTrigger>
-      </TabsList>
-      <TabsContent value="sdk">
-        ```typescript
-        const results = await Collect.records.search({
-          label: "ORDER",
-          properties: {
-            sum: { $gt: 200 }
-          }
-        })
-        ```
-      </TabsContent>
-      <TabsContent value="api">
-        ```javascript
-        {
-          "label": "ORDER",
-          "properties": {
-            "sum": { "$gt": 200 }
-          }
-        }
-        ```
-      </TabsContent>
-    </Tabs>
-
-    ### Response
-
-    ```javascript
-    [
-      {
-        "__id": "0191b44a-c815-7d40-bf48-b2d1727670d7",
-        "__label": "ORDER",
-        "sum": 250,
-        // ... other properties
-      },
-      // ... more matching records
-    ]
-    ```
-  </div>
-</div>
-
----
-
-## Labels
-
-<div className="grid xl:grid-cols-5 grid-cols-1 gap-8">
-  <div  className="xl:order-last col-span-2">
-    ### Endpoints
-    Create or update a Label:
-    ```ts
-    POST /api/v1/label
-    ```
-    Get Label details:
-    ```ts
-    GET /api/v1/label/{labelName}
-    ```
-    :::info
-    Note: Replace `{labelName}` with the actual name of the Label you want to retrieve.
-    :::
-  </div>
-  <div className="col-span-3">
-    Labels in Collect allow you to categorize and organize your Records. You can create, update, and retrieve Label information using these endpoints.
-
-    ### Create or Update Label
-
-    <Tabs defaultValue="sdk" >
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="sdk">SDK</TabsTrigger>
-        <TabsTrigger value="api">API</TabsTrigger>
-      </TabsList>
-      <TabsContent value="sdk">
-        ```typescript
-        await Collect.labels.createOrUpdate("ORDER", {
-          description: "Represents a customer order",
-          properties: {
-            sum: { type: "number", required: true },
-            items: { type: "number", required: true },
-            status: { type: "string", enum: ["pending", "shipped", "delivered"] }
-          }
-        })
-        ```
-      </TabsContent>
-      <TabsContent value="api">
-        ```javascript
-        POST /api/v1/label
-
-        {
-          "name": "ORDER",
-          "description": "Represents a customer order",
-          "properties": {
-            "sum": { "type": "number", "required": true },
-            "items": { "type": "number", "required": true },
-            "status": { "type": "string", "enum": ["pending", "shipped", "delivered"] }
-          }
-        }
-        ```
-      </TabsContent>
-    </Tabs>
-
-    ### Get Label Details
-
-    <Tabs defaultValue="sdk" >
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="sdk">SDK</TabsTrigger>
-        <TabsTrigger value="api">API</TabsTrigger>
-      </TabsList>
-      <TabsContent value="sdk">
-        ```typescript
-        const labelDetails = await Collect.labels.get("ORDER")
-        ```
-      </TabsContent>
-      <TabsContent value="api">
-        ```bash
-        GET /api/v1/label/ORDER
-        ```
-      </TabsContent>
-    </Tabs>
-
-    ### Response
-
-    ```javascript
-    {
-      "name": "ORDER",
-      "description": "Represents a customer order",
-      "properties": {
-        "sum": { "type": "number", "required": true },
-        "items": { "type": "number", "required": true },
-        "status": { "type": "string", "enum": ["pending", "shipped", "delivered"] }
-      },
-      "recordCount": 1250  // Number of Records with this Label
-    }
-    ```
-  </div>
-</div>
-
----
-
-# Import API
-
-## Overview
-The Import API allows you to push data and get it automatically normalized and labeled. This API is designed to receive
-`JSON`, `CSV`, `YML` and `XML` payloads and normalize the incoming data while optionally generating labels and suggesting
-[data types](/advanced/data-types) for each field within the payload.
-
-### Endpoint URLs
-```bash
-POST /api/v1/import/json
-```
-```bash
-POST /api/v1/import/csv
-```
-
-## Request
-
-### Request Headers
-- Content-Type: application/json
-
-### Request Body
-- The request body must be a JSON object conforming to the following Data Transfer Object (DTO):
-
-```json
-{
-"parentId": "string (optional)",
-  "payload": {
-  "field1": "value1",
-    "field2": "value2"
-},
-"label": "string (optional)",
-  "options": {
-  "generateLabels": true/false,
-    "suggestTypes": true/false
-}
-}
-```
-
-#### Request Parameters
-- `parentId` (optional): A string identifier for grouping related payloads together. Useful for organizing data hierarchically.
-- `payload`: The JSON data that you want to collect, normalize, and label.
-- `label` (optional): A custom label for the payload. If not provided, labels can be generated automatically based on the keys within the payload.
-- `options`: An object containing options for data processing.
-- `generateLabels`: A boolean flag indicating whether to generate labels automatically based on keys that hold nested objects within the payload.
-- `suggestTypes`: A boolean flag indicating whether to suggest data types (e.g., boolean, number, string, datetime, null) based on the values within the payload.
-
-## Response
-
-### Success Response (200 OK)
-- The API will respond with a JSON object containing the normalized and labeled data, along with a unique identifier for the collected data.
-
-```json
-{
-"dataId": "string (unique identifier)",
-  "normalizedPayload": {
-  "field1": "normalized_value1",
-    "field2": "normalized_value2",
-...
-},
-"label": "string (provided or generated label)",
-  "dataTypes": {
-  "field1": "string (suggested data type)",
-    "field2": "string (suggested data type)",
-...
-}
-}
-```
-
-### Error Responses
-- If the request is invalid or encounters an error, the API will respond with an appropriate error message along with the corresponding HTTP status code.
-
-```json
-{
-"error": "string (error message)"
-}
-```
-
-## Example
-
-### Request Example
-```http
-POST /api/v1/collect/json
-Content-Type: application/json
-
-{
-"parentId": "parent_id_123",
-  "payload": {
-  "name": "John Doe",
-    "age": 30,
-    "email": "johndoe@example.com"
-},
-"label": "User Data",
-  "options": {
-  "generateLabels": true,
-    "suggestTypes": true
-}
-}
-```
-
-### Response Example (200 OK)
-```json
-{
-"dataId": "data_id_456",
-  "normalizedPayload": {
-  "name": "John Doe",
-    "age": 30,
-    "email": "johndoe@example.com"
-},
-"label": "User Data",
-  "dataTypes": {
-  "name": "string",
-    "age": "number",
-    "email": "string"
-}
-}
-```
-
-## Notes
-- The API provides flexibility by allowing you to customize labels and enable or disable automatic label generation and data type suggestions as needed.
-- The `dataId` returned in the response can be used to reference or retrieve the collected data in the future.
-- Ensure that the request payload conforms to the specified JSON format to ensure successful data processing.
-
----
-
-## Export API
-
-```bash
-POST /api/v1/export/csv
-```
 
 ---
 
