@@ -1,0 +1,27 @@
+---
+sidebar_position: 2
+---
+
+import { Method } from '@site/src/components/ui/method';
+
+# Properties
+
+:::info
+This part of the documentation is actively in development.
+
+If you encounter any issues while using it, we kindly
+request that you notify us through any available channels or contact us directly at
+[hello@collect.so](mailto:hello@collect.so) or [@CollectAPI on X](https://x.com/collectAPI/)
+:::
+
+## Endpoints Overview
+The Properties API provides several endpoints to work with. Here's an overview of all available endpoints in this section:
+| Method | Endpoint | Description |
+| -------- | ----------------------------------- | --------------------------------------------------------------- |
+| <Method method="GET" color="#4287f5"/> | `/api/v1/properties/:propertyId` | Get a single property with available values |
+| <Method method="GET" color="#4287f5"/> | `/api/v1/properties/:propertyId/values` | Get values |
+| <Method method="GET" color="#4287f5"/> | `/api/v1/records/:entityId/properties` | Get available properties for record |
+| <Method method="POST" color="#2e8555"/> | `/api/v1/properties` | Get list of properties by search param |
+| <Method method="PATCH" color="#f5a742"/> | `/api/v1/properties/:propertyId/values` | Edit property values for selected records |
+| <Method method="PATCH" color="#f5a742"/> | `/api/v1/properties/:propertyId` | Edit property info |
+| <Method method="DELETE" color="#f54242"/> | `/api/v1/properties/:propertyId` | Delete property |
