@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@site/src/components/u
 
 # Relations
 
-Relations in Collect allow you to create links between [records](/basic-concepts/records), simplifying the modeling of complex data interactions and enhancing relationships between different records in your application.
+Relations in Collect allow you to create links between [records](/basic-concepts/records), simplifying the modeling of complex data interactions and enhancing relationships between different Records in your application.
 
 <div className="grid xl:grid-cols-5 grid-cols-1 gap-8">
     <div className="col-span-5">
@@ -21,8 +21,8 @@ Relations in Collect allow you to create links between [records](/basic-concepts
 </div>
 
 ## How it works
-Relations are one of the key concepts in Collect. When building applications, it’s common that records do not exist in isolation. They are usually interconnected, interacting with each other in meaningful ways.
-Collect provides a powerful tool for describing these interactions by allowing you to define the direction of relations between records and give them meaningful labels. This enables complex data structures where records can reference each other in ways that model real-world interactions.
+Relations are one of the key concepts in Collect. When building applications, it’s common that [Records](/basic-concepts/records) do not exist in isolation. They are usually interconnected, interacting with each other in meaningful ways.
+Collect provides a powerful tool for describing these interactions by allowing you to define the direction of relations between Records and give them meaningful labels. This enables complex data structures where Records can reference each other in ways that model real-world interactions.
 Using relations in Collect allows you to establish powerful queries that take these relationships into account, providing a robust and scalable way to search and retrieve interconnected data across your application.
 
 ---
@@ -34,11 +34,11 @@ Using relations in Collect allows you to establish powerful queries that take th
         ### Endpoints
         Create a Relation
         ```ts
-        POST /api/v1/entity/:entityId/relations
+        POST /api/v1/records/:entityId/relations
         ```
     </div>
     <div className="col-span-3">
-        Creates a new relation between [records](/basic-concepts/records) by linking them
+        Creates a new relation between [Records](/basic-concepts/records) by linking them
 
         <Tabs defaultValue="sdk">
             <TabsList className="grid w-full grid-cols-2">
@@ -79,8 +79,10 @@ Using relations in Collect allows you to establish powerful queries that take th
                 ```javascript
                 {
                     "targetIds": "019214ab-ed65-7ce8-9c54-51cdb9b7f662",
-                    // direction is currently unavailable via Collect SDK
-                    "direction": "out"
+                    // "direction" is currently unavailable via Collect SDK
+                    "direction": "out",
+                    // "type" is currently unavailable via Collect SDK
+                    "type": "client"
                 }
                 ```
 
@@ -95,18 +97,23 @@ Using relations in Collect allows you to establish powerful queries that take th
     </div>
 </div>
 
+---
+
 ## Get Relation
 
 <div className="grid xl:grid-cols-5 grid-cols-1 gap-8">
     <div className="xl:order-last col-span-2">
-        ### Endpoints
-        Get data about [Record](/basic-concepts/records) relations
+        ### Endpoint
+        Get list of all parents of [Record's](/basic-concepts/records) Relations
         ```ts
-        GET /api/v1/entity/:entityId/relations
+        GET /api/v1/records/:id/relations
         ```
+        :::info
+        Note: Replace `:id` with the actual ID of the Record whose relations you want to retrieve.
+        :::
     </div>
     <div className="col-span-3">
-        Retrieves all relations associated with a specific [record](/basic-concepts/records)
+        To retrieve the Relations of a [Record's](/basic-concepts/records) in Collect, use the `.relations` method or make a GET request to the REST API endpoint.
 
         <Tabs defaultValue="sdk">
             <TabsList className="grid w-full grid-cols-2">
@@ -154,18 +161,20 @@ Using relations in Collect allows you to establish powerful queries that take th
     </div>
 </div>
 
+---
+
 ## Delete Relation
 
 <div className="grid xl:grid-cols-5 grid-cols-1 gap-8">
     <div className="xl:order-last col-span-2">
         ### Endpoints
-        Remove relation or relations between records
+        Remove relation or relations between [Records](/basic-concepts/records)
         ```ts
-        PUT /api/v1/entity/:entityId/relations
+        PUT /api/v1/records/:entityId/relations
         ```
     </div>
     <div className="col-span-3">
-        Removes an existing relation between [records](/basic-concepts/records)
+        Removes an existing relation between [Records](/basic-concepts/records)
 
         <Tabs defaultValue="sdk">
             <TabsList className="grid w-full grid-cols-2">
@@ -193,7 +202,9 @@ Using relations in Collect allows you to establish powerful queries that take th
                 {
                     "targetIds": ["019214e7-64c6-7a89-8d27-1441b54c4967", "019214e7-647b-7e37-8aaa-b3f1444a2de8"],
                     // Will remove all "in" relations between records
-                    "direction": "in"
+                    "direction": "in",
+                    // "type" is currently unavailable via Collect SDK
+                    "type": "client"
                 }
                 ```
 
@@ -214,6 +225,6 @@ Using relations in Collect allows you to establish powerful queries that take th
 The Relations API provides several endpoints to work with relations. Here's an overview of all available endpoints in this section:
 | Method | Endpoint | Description |
 | -------- | ----------------------------------- | --------------------------------------------------------------- |
-| <Method method="POST" color="#2e8555"/> | `/api/v1/entity/:entityId/relations` | Create a new relation |
-| <Method method="GET" color="#4287f5"/> | `/api/v1/entity/:entityId/relations` | Retrieve information about record relations |
-| <Method method="PUT" color="#f5a742"/> | `/api/v1/entity/:entityId/relations` | Remove relation or relations |
+| <Method method="POST" color="#2e8555"/> | `/api/v1/records/:entityId/relations` | Create a new Relation |
+| <Method method="GET" color="#4287f5"/> | `/api/v1/records/:entityId/relations` | Retrieve information about [Records](/basic-concepts/records) Relations |
+| <Method method="PUT" color="#f5a742"/> | `/api/v1/records/:entityId/relations` | Remove Relation or Relations |

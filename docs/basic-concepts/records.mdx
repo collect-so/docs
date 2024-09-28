@@ -182,7 +182,7 @@ it as a "dictionary", "map", "hash table", or "associative array" depending on y
   <div className="col-span-3">
     This API allows you to push data and get it is automatically normalized, and labels are generated based on the structure of the payload. The API also suggests data types for each field within the payload. Currently, this API supports `JSON` and `CSV` formats, with upcoming support for `YAML`, `NDJSON`, `XML`, and `GEXF`.
 
-    This API facilitates the creation of records and their relationships using a Breadth-First Search (BFS) algorithm, ensuring accurate and efficient connections between data points.
+    This API facilitates the creation of records and their [relationships](/basic-concepts/relations) using a Breadth-First Search (BFS) algorithm, ensuring accurate and efficient connections between data points.
 
     ### Request
     <Tabs defaultValue="sdk" >
@@ -419,62 +419,6 @@ it as a "dictionary", "map", "hash table", or "associative array" depending on y
 
 ---
 
-## Relations
-<div className="grid xl:grid-cols-5 grid-cols-1 gap-8">
-  <div  className="xl:order-last col-span-2">
-    ### Endpoint
-    Get list of all parents of Record's Relations
-    ```ts
-    GET /api/v1/records/:id/relations
-    ```
-    :::info
-    Note: Replace `:id` with the actual ID of the Record whose relations you want to retrieve.
-    :::
-  </div>
-  <div className="col-span-3">
-    To retrieve the Relations of a Record in Collect, use the `.getRelations` method or make a GET request to the REST API endpoint.
-
-    ### Request
-
-    <Tabs defaultValue="sdk" >
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="sdk">SDK</TabsTrigger>
-        <TabsTrigger value="api">API</TabsTrigger>
-      </TabsList>
-      <TabsContent value="sdk">
-        ```typescript
-        const relations = await Collect.records.getRelations("0191b44a-c815-7d40-bf48-b2d1727670d7")
-        ```
-      </TabsContent>
-      <TabsContent value="api">
-        ```bash
-        GET /api/v1/records/0191b44a-c815-7d40-bf48-b2d1727670d7/relations
-        ```
-      </TabsContent>
-    </Tabs>
-
-    ### Response
-
-    ```javascript
-    [
-      {
-        "__id": "0191b44a-c815-7d40-bf48-b2d1727670d8",
-        "__label": "USER",
-        // ... other properties of the related record
-      },
-      {
-        "__id": "0191b44a-c815-7d40-bf48-b2d1727670d9",
-        "__label": "PRODUCT",
-        // ... other properties of the related record
-      }
-      // ... more related records
-    ]
-    ```
-  </div>
-</div>
-
----
-
 ## Update Record
 <div className="grid xl:grid-cols-5 grid-cols-1 gap-8">
   <div  className="xl:order-last col-span-2">
@@ -610,8 +554,5 @@ The Records API provides several endpoints for managing and interacting with Rec
 | <Method method="PUT" color="#f5a742" />    | `/api/v1/records/delete`           | Delete Records by criteria                                  |
 | <Method method="DELETE" color="#f54242" /> | `/api/v1/records/:id`              | Delete a single Record                                        |
 | <Method method="POST" color="#2e8555" />   | `/api/v1/records/:id/properties`   | Get detailed list of Record's Properties                    |
-| <Method method="GET" color="#4287f5" />    | `/api/v1/records/:id/relations`    | Get a list of Records' Relations                    |
-| <Method method="POST" color="#2e8555" />   | `/api/v1/records/:id/relations`    | Create new Relations between Records                     |
-| <Method method="PUT" color="#f5a742" />    | `/api/v1/records/:id/relations`    | Delete specific Records' Relations                  |
 
 Each endpoint is designed to perform specific operations on Records, allowing you to create, read, update, delete, and search for Records within your project. The following sections provide more detailed information about each operation.
