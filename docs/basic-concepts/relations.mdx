@@ -15,6 +15,15 @@ Relations in Collect allow you to create links between [records](/basic-concepts
 
         ```typescript
         export type CollectRelationTarget = CollectRecordsArrayInstance<any> | MaybeArray<CollectRecord<any>> | MaybeArray<CollectRecordInstance<any>> | MaybeArray<string>;
+
+        export type CollectRelationOptions = {
+            direction?: 'in' | 'out';
+            type?: string;
+        };
+
+        export type CollectRelationDetachOptions = Omit<CollectRelationOptions, 'type'> & {
+            typeOrTypes?: string | string[];
+        };
         ```
 
     </div>
@@ -36,9 +45,14 @@ Using relations in Collect allows you to establish powerful queries that take th
         ```ts
         POST /api/v1/records/:entityId/relations
         ```
+
+        :::info
+        Note: Replace `:entityId` with the actual ID of the Record whose relations you want to retrieve.
+        :::
     </div>
     <div className="col-span-3">
-        Creates a new relation between [Records](/basic-concepts/records) by linking them
+        Creates a new relation between [Records](/basic-concepts/records) by linking them. You can provide extra options for
+        relation: set direction and create name for them.
 
         <Tabs defaultValue="sdk">
             <TabsList className="grid w-full grid-cols-2">
@@ -48,7 +62,6 @@ Using relations in Collect allows you to establish powerful queries that take th
             <TabsContent value="sdk">
                 ### Request
                 ```typescript
-                    // Example of attaching a relation
                     const product = await collect.records.create("Product", {
                         title: "Nike Air Max 270",
                         price: 150,
@@ -63,8 +76,10 @@ Using relations in Collect allows you to establish powerful queries that take th
                         email: "janesmith@example.com",
                     });
 
-                    await collect.records.attach(owner.data.__id, product);
-
+                    await collect.records.attach(owner.data.__id, product, {
+                        direction: "out",
+                        type: "owner",
+                    });
                 ```
 
                 ### Response
@@ -79,10 +94,8 @@ Using relations in Collect allows you to establish powerful queries that take th
                 ```javascript
                 {
                     "targetIds": "019214ab-ed65-7ce8-9c54-51cdb9b7f662",
-                    // "direction" is currently unavailable via Collect SDK
                     "direction": "out",
-                    // "type" is currently unavailable via Collect SDK
-                    "type": "client"
+                    "type": "owner"
                 }
                 ```
 
@@ -106,10 +119,10 @@ Using relations in Collect allows you to establish powerful queries that take th
         ### Endpoint
         Get list of all parents of [Record's](/basic-concepts/records) Relations
         ```ts
-        GET /api/v1/records/:id/relations
+        GET /api/v1/records/:entityId/relations
         ```
         :::info
-        Note: Replace `:id` with the actual ID of the Record whose relations you want to retrieve.
+        Note: Replace `:entityId` with the actual ID of the Record whose relations you want to retrieve.
         :::
     </div>
     <div className="col-span-3">
@@ -172,6 +185,10 @@ Using relations in Collect allows you to establish powerful queries that take th
         ```ts
         PUT /api/v1/records/:entityId/relations
         ```
+
+        :::info
+        Note: Replace `:entityId` with the actual ID of the Record whose relations you want to retrieve.
+        :::
     </div>
     <div className="col-span-3">
         Removes an existing relation between [Records](/basic-concepts/records)
@@ -184,9 +201,10 @@ Using relations in Collect allows you to establish powerful queries that take th
             <TabsContent value="sdk">
                 ### Request
                 ```typescript
-                // Example of attaching a relation
-                await collect.records.detach("019214e7-6421-790f-b164-24bd73d239f0", ["019214e7-64c6-7a89-8d27-1441b54c4967", "019214e7-647b-7e37-8aaa-b3f1444a2de8"]);
-
+                await collect.records.detach("019214e7-6421-790f-b164-24bd73d239f0", ["019214e7-64c6-7a89-8d27-1441b54c4967", "019214e7-647b-7e37-8aaa-b3f1444a2de8"], {
+                    direction: "out",
+                    typeOrTypes: "owner"
+                });
                 ```
 
                 ### Response
@@ -201,10 +219,8 @@ Using relations in Collect allows you to establish powerful queries that take th
                 ```javascript
                 {
                     "targetIds": ["019214e7-64c6-7a89-8d27-1441b54c4967", "019214e7-647b-7e37-8aaa-b3f1444a2de8"],
-                    // Will remove all "in" relations between records
-                    "direction": "in",
-                    // "type" is currently unavailable via Collect SDK
-                    "type": "client"
+                    "direction": "out",
+                    "typeOrTypes": "owner"
                 }
                 ```
 
@@ -226,5 +242,5 @@ The Relations API provides several endpoints to work with relations. Here's an o
 | Method | Endpoint | Description |
 | -------- | ----------------------------------- | --------------------------------------------------------------- |
 | <Method method="POST" color="#2e8555"/> | `/api/v1/records/:entityId/relations` | Create a new Relation |
-| <Method method="GET" color="#4287f5"/> | `/api/v1/records/:entityId/relations` | Retrieve information about [Records](/basic-concepts/records) Relations |
+| <Method method="GET" color="#4287f5"/> | `/api/v1/records/:entityId/relations` | Retrieve information about [Record](/basic-concepts/records) Relations |
 | <Method method="PUT" color="#f5a742"/> | `/api/v1/records/:entityId/relations` | Remove Relation or Relations |

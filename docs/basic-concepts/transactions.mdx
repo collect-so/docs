@@ -104,6 +104,8 @@ It's easiest to explain how transactions work without diving into code. Think of
     </div>
 </div>
 
+---
+
 ## Get Transaction
 
 <div className="grid xl:grid-cols-5 grid-cols-1 gap-8">
@@ -113,6 +115,10 @@ It's easiest to explain how transactions work without diving into code. Think of
         ```ts
         GET /api/v1/transactions/:txId
         ```
+
+        :::info
+        Note: Replace `:txId` with the actual ID of the Transaction.
+        :::
     </div>
     <div className="col-span-3">
         To retrieve a specific transaction in Collect, simply call the `.get` method on the `tx` object.
@@ -149,6 +155,8 @@ It's easiest to explain how transactions work without diving into code. Think of
     </div>
 </div>
 
+---
+
 ## Commit Transaction
 
 <div className="grid xl:grid-cols-5 grid-cols-1 gap-8">
@@ -158,6 +166,10 @@ It's easiest to explain how transactions work without diving into code. Think of
         ```ts
         POST /api/v1/transactions/:txId
         ```
+
+        :::info
+        Note: Replace `:txId` with the actual ID of the Transaction.
+        :::
     </div>
     <div className="col-span-3">
         To commit a transaction, indicating that all operations within the transaction should be applied:
@@ -192,6 +204,8 @@ It's easiest to explain how transactions work without diving into code. Think of
     </div>
 </div>
 
+---
+
 ## Rollback Transaction
 
 <div className="grid xl:grid-cols-5 grid-cols-1 gap-8">
@@ -201,6 +215,10 @@ It's easiest to explain how transactions work without diving into code. Think of
         ```ts
         POST /api/v1/transactions/:txId/rollback
         ```
+
+        :::info
+        Note: Replace `:txId` with the actual ID of the Transaction.
+        :::
     </div>
     <div className="col-span-3">
         To roll back a transaction, undoing all operations performed within it:
