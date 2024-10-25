@@ -4,16 +4,17 @@ sidebar_position: 10
 
 # Querying Data
 :::note
-In previous sections, you have encountered the `where` condition and various logical operators like `$AND` and `$XOR`. This section provides a comprehensive guide on querying data using the `CollectQuery` type, covering all available logical and comparison operators.
+In previous sections, you have encountered the `where` condition and various logical operators like `$and` and `$xor`. This section provides a comprehensive guide on querying data using the `CollectQuery` type, covering all available logical and comparison operators.
 :::
 
 ## Table of Contents
 
 - [Logical Operators](#logical-operators)
-    - [$AND](#and)
-    - [$OR](#or)
-    - [$NOT](#not)
-    - [$XOR](#xor)
+    - [$and](#and)
+    - [$or](#or)
+    - [$not](#not)
+    - [$nor](#nor)
+    - [$xor](#xor)
 - [Comparison Operators](#comparison-operators)
     - [Boolean Operators](#boolean-operators)
         - [$not](#not-1)
@@ -23,38 +24,37 @@ In previous sections, you have encountered the `where` condition and various log
         - [$lt](#lt)
         - [$lte](#lte)
         - [$in](#in)
-        - [$notIn](#notin)
+        - [$nin](#nin)
     - [Number Operators](#number-operators)
         - [$gt](#gt-1)
         - [$gte](#gte-1)
         - [$lt](#lt-1)
         - [$lte](#lte-1)
         - [$in](#in-1)
-        - [$notIn](#notin-1)
+        - [$nin](#nin-1)
     - [String Operators](#string-operators)
         - [$contains](#contains)
         - [$endsWith](#endswith)
         - [$startsWith](#startswith)
         - [$in](#in-2)
-        - [$notIn](#notin-2)
-- [Complex examples](#complex-examples)
+        - [$nin](#nin-1)
 
 ## Logical Operators
 
 Logical operators allow you to build complex queries by combining multiple conditions.
 
-### $AND
+### $and
 
-The `$AND` operator combines multiple conditions and returns results that match all the conditions.
+The `$and` operator combines multiple conditions and returns results that match all the conditions.
 
-Alternatively, you can omit `$AND` and directly list the conditions if there are no other logical operators at the same level.
+Alternatively, you can omit `$and` and directly list the conditions if there are no other logical operators at the same level.
 
 ##### Examples:
 ```typescript
-// Basic example with $AND
-const queryWithAnd = await Collect.records.find('author', {
+// Basic example with $and
+const queryWithAnd = await Collect.records.find('AUTHOR', {
   where: {
-    $AND: [
+    $and: [
       { name: { $startsWith: 'Jane' } },
       { email: { $contains: '@example.com' } }
     ]
@@ -63,8 +63,8 @@ const queryWithAnd = await Collect.records.find('author', {
 ```
 
 ```typescript
-// Basic example without $AND
-const queryWithAnd = await Collect.records.find('author', {
+// Basic example without $and
+const queryWithAnd = await Collect.records.find('AUTHOR', {
   where: {
     name: { $startsWith: 'Jane' },
     email: { $contains: '@example.com' }
@@ -72,16 +72,16 @@ const queryWithAnd = await Collect.records.find('author', {
 });
 ```
 
-### $OR
+### $or
 
-The `$OR` operator combines multiple conditions and returns results that match any of the conditions. This is useful for querying records that meet at least one of several criteria.
+The `$or` operator combines multiple conditions and returns results that match any of the conditions. This is useful for querying records that meet at least one of several criteria.
 
 ##### Examples:
 ```typescript
-// Complex example with $OR
-const queryWithOr = await Collect.records.find('post', {
+// Complex example with $or
+const queryWithOr = await Collect.records.find('POST', {
   where: {
-    $OR: [
+    $or: [
       { rating: { $gte: 4 } },
       { title: { $contains: 'Guide' } }
     ]
@@ -90,14 +90,14 @@ const queryWithOr = await Collect.records.find('post', {
 ```
 
 ```typescript
-// Complex example with $AND and $OR for numbers
-const queryComplexNumber = await Collect.records.find('post', {
+// Complex example with $and and $or for numbers
+const queryComplexNumber = await Collect.records.find('POST', {
   where: {
-    $AND: [
+    $and: [
       { rating: { $gte: 3, $lte: 5 } },
       { views: { $gt: 1000 } }
     ],
-    $OR: [
+    $or: [
       { comments: { $lt: 50 } },
       { shares: { $gte: 100 } }
     ]
@@ -105,28 +105,45 @@ const queryComplexNumber = await Collect.records.find('post', {
 });
 ```
 
-### $NOT
+### $not
 
-The `$NOT` operator inverts the condition it applies to, returning results that do not match the specified condition.
+The `$not` operator inverts the condition it applies to, returning results that do not match the specified condition.
 
 ##### Examples:
 ```typescript
-// Example using $NOT
-const queryWithNot = await Collect.records.find('author', {
+// Example using $not
+const queryWithNot = await Collect.records.find('AUTHOR', {
   where: {
-    $NOT: [
+    $not: [
       { email: { $contains: '@example.com' } }
     ]
   }
 });
 ```
 
-### $XOR
+### $nor
+
+The `$nor` operator returns true when all values are false
+
+##### Examples:
 ```typescript
-// Example using $XOR
-const queryWithXor = await Collect.records.find('author', {
+// Example using $nor
+const queryWithNot = await Collect.records.find('AUTHOR', {
   where: {
-    $XOR: [
+    $nor: [
+      { email: { $contains: '@gmail.com' } },
+      { email: { $contains: '@proton.me' } }
+    ]
+  }
+});
+```
+
+### $xor
+```typescript
+// Example using $xor
+const queryWithXor = await Collect.records.find('AUTHOR', {
+  where: {
+    $xor: [
       { name: { $startsWith: 'Jane' } },
       { email: { $contains: '@example.com' } }
     ]
@@ -134,7 +151,7 @@ const queryWithXor = await Collect.records.find('author', {
 });
 ```
 
-The `$XOR` operator (exclusive OR) combines multiple conditions and returns results that match one and only one of the conditions.
+The `$xor` operator (exclusive OR) combines multiple conditions and returns results that match one and only one of the conditions.
 
 ##### Examples:
 
@@ -150,7 +167,7 @@ The `$not` operator checks if a field is not equal to a specified value. This op
 
 ##### Examples:
 ```typescript
-const queryNotFalse = await Collect.records.find('author', {
+const queryNotFalse = await Collect.records.find('AUTHOR', {
   where: {
     email: { $startsWith: '' },
     married: { $not: false }
@@ -166,7 +183,7 @@ The `$gt` (greater than) operator checks if a field's value is greater than the 
 
 ##### Examples:
 ```typescript
-const queryGreaterDatetime = await Collect.records.find('post', {
+const queryGreaterDatetime = await Collect.records.find('POST', {
   where: {
     created: { $gt: { $year: 2023, $month: 1, $day: 1 } }
   }
@@ -180,7 +197,7 @@ The `$gte` (greater than or equal to) operator checks if a field's value is grea
 
 ##### Examples:
 ```typescript
-const queryGreaterOrEqualDatetime = await Collect.records.find('post', {
+const queryGreaterOrEqualDatetime = await Collect.records.find('POST', {
   where: {
     created: { $gte: '2023-01-01T00:00:00Z' }
   }
@@ -194,7 +211,7 @@ The `$lt` (less than) operator checks if a field's value is less than the specif
 
 ##### Examples:
 ```typescript
-const queryLesserDatetime = await Collect.records.find('post', {
+const queryLesserDatetime = await Collect.records.find('POST', {
   where: {
     created: { $lt: { $year: 2024, $month: 1, $day: 1 } }
   }
@@ -209,7 +226,7 @@ The `$lte` (less than or equal to) operator checks if a field's value is less th
 ##### Examples:
 ```typescript
 // Complex example with $gte and $lte for datetime
-const queryWithDatetime = await Collect.records.find('post', {
+const queryWithDatetime = await Collect.records.find('POST', {
   where: {
     created: { $gte: '2023-01-01T00:00:00Z', $lte: '2023-12-31T23:59:59Z' }
   }
@@ -217,7 +234,7 @@ const queryWithDatetime = await Collect.records.find('post', {
 ```
 ```typescript
 // Example using $lte for datetime as object
-const queryWithLteDatetimeObject = await Collect.records.find('post', {
+const queryWithLteDatetimeObject = await Collect.records.find('POST', {
   where: {
     created: { $lte: { $year: 2024, $month: 1, $day: 1 } }
   }
@@ -230,29 +247,12 @@ The `$not` operator is used to find records where the datetime field does not ma
 
 ##### Examples:
 ```typescript
-const queryNotDatetime = await Collect.records.find('post', {
+const queryNotDatetime = await Collect.records.find('POST', {
   where: {
     created: { $not: '2023-01-01T00:00:00Z' }
   }
 });
 // Finds posts not created on January 1, 2023, 00:00:00 UTC
-```
-
-#### $notIn
-
-The `$notIn` operator is used to find records where the datetime field does not match any value in the specified array.
-
-##### Examples:
-```typescript
-const queryNotInDatetime = await Collect.records.find('post', {
-  where: {
-    created: { $notIn: [
-      { $year: 2023, $month: 1, $day: 1 },
-      { $year: 2023, $month: 2, $day: 1 }
-    ]}
-  }
-});
-// Finds posts not created on January 1, 2023 or February 1, 2023
 ```
 
 #### $in
@@ -261,7 +261,7 @@ The `$in` operator is used to find records where the datetime field matches any 
 
 ##### Examples:
 ```typescript
-const queryInDatetime = await Collect.records.find('post', {
+const queryInDatetime = await Collect.records.find('POST', {
   where: {
     created: { $in: [
       '2023-01-01T00:00:00Z',
@@ -270,6 +270,24 @@ const queryInDatetime = await Collect.records.find('post', {
   }
 });
 // Finds posts created on January 1, 2023 or February 1, 2023
+```
+
+#### $nin
+
+The `$nin` operator is used to find records where the datetime field doesn't match any value in the specified array.
+
+##### Examples:
+```typescript
+const queryInDatetime = await Collect.records.find('POST', {
+  where: {
+    created: { $nin: [
+      '2023-01-01T00:00:00Z',
+      '2023-02-01T00:00:00Z'
+    ]}
+  }
+});
+
+// Finds posts that were not created on January 1, 2023, or February 1, 2023
 ```
 
 ### Number Operators
@@ -281,7 +299,7 @@ The `$gt` (greater than) operator checks if a field's value is greater than the 
 ##### Examples:
 ```typescript
 // Example using $gt
-const queryWithGt = await Collect.records.find('post', {
+const queryWithGt = await Collect.records.find('POST', {
   where: {
     rating: { $gt: 4 }
   }
@@ -295,7 +313,7 @@ The `$gte` (greater than or equal to) operator checks if a field's value is grea
 ##### Examples:
 ```typescript
 // Example using $gte
-const queryWithGte = await Collect.records.find('post', {
+const queryWithGte = await Collect.records.find('POST', {
   where: {
     rating: { $gte: 4 }
   }
@@ -309,7 +327,7 @@ The `$lt` (less than) operator checks if a field's value is less than the specif
 ##### Examples:
 ```typescript
 // Example using $lt
-const queryWithLt = await Collect.records.find('post', {
+const queryWithLt = await Collect.records.find('POST', {
   where: {
     rating: { $lt: 4 }
   }
@@ -323,7 +341,7 @@ The `$lte` (less than or equal to) operator checks if a field's value is less th
 ##### Examples:
 ```typescript
 // Example using $lte
-const queryWithLte = await Collect.records.find('post', {
+const queryWithLte = await Collect.records.find('POST', {
   where: {
     rating: { $lte: 4 }
   }
@@ -338,23 +356,23 @@ The `$in` operator checks if a field's value is within a specified array of valu
 ##### Examples:
 ```typescript
 // Example using $in (numbers)
-const queryWithInNumbers = await Collect.records.find('author', {
+const queryWithInNumbers = await Collect.records.find('AUTHOR', {
   where: {
     age: { $in: [25, 30, 35] }
   }
 });
 ```
 
-#### $notIn
+#### $nin
 
-The `$notIn` operator checks if a field's value is not within a specified array of values.
+The `$nin` operator checks if a field's value is not within a specified array of values.
 
 ##### Examples:
 ```typescript
-// Example using $notIn (numbers)
-const queryWithNotInNumbers = await Collect.records.find('author', {
+// Example using $nin (numbers)
+const queryWithNotInNumbers = await Collect.records.find('AUTHOR', {
   where: {
-    age: { $notIn: [25, 30, 35] }
+    age: { $nin: [25, 30, 35] }
   }
 });
 ```
@@ -368,7 +386,7 @@ The `$contains` operator checks if a string field contains the specified substri
 ##### Examples:
 ```typescript
 // Example using $contains
-const queryWithContains = await Collect.records.find('post', {
+const queryWithContains = await Collect.records.find('POST', {
   where: {
     content: { $contains: 'Graph' }
   }
@@ -382,7 +400,7 @@ The `$endsWith` operator checks if a string field ends with the specified substr
 ##### Examples:
 ```typescript
 // Example using $endsWith
-const queryWithEndsWith = await Collect.records.find('post', {
+const queryWithEndsWith = await Collect.records.find('POST', {
   where: {
     title: { $endsWith: 'Databases' }
   }
@@ -396,7 +414,7 @@ The `$startsWith` operator checks if a string field starts with the specified su
 ##### Examples:
 ```typescript
 // Example using $startsWith
-const queryWithStartsWith = await Collect.records.find('post', {
+const queryWithStartsWith = await Collect.records.find('POST', {
   where: {
     title: { $startsWith: 'Understanding' }
   }
@@ -405,9 +423,9 @@ const queryWithStartsWith = await Collect.records.find('post', {
 
 ```typescript
 // Complex example with multiple string operators
-const queryWithStringOperators = await Collect.records.find('post', {
+const queryWithStringOperators = await Collect.records.find('POST', {
   where: {
-    $OR: [
+    $or: [
       { title: { $startsWith: 'Understanding' } },
       { title: { $contains: 'Graph' } },
       { title: { $endsWith: 'Databases' } }
@@ -423,136 +441,25 @@ The `$in` operator checks if a field's value is within a specified array of valu
 ##### Examples:
 ```typescript
 // Example using $in (strings)
-const queryWithInStrings = await Collect.records.find('author', {
+const queryWithInStrings = await Collect.records.find('AUTHOR', {
   where: {
     name: { $in: ['Jane Doe', 'John Smith'] }
   }
 });
 ```
 
-#### $notIn
+#### $nin
 
-The `$notIn` operator checks if a field's value is not within a specified array of values.
+The `$nin` operator checks if a field's value is not within a specified array of values.
 
 ##### Examples:
 ```typescript
-// Example using $notIn (strings)
-const queryWithNotInStrings = await Collect.records.find('author', {
+// Example using $nin (strings)
+const queryWithNotInStrings = await Collect.records.find('AUTHOR', {
   where: {
-    name: { $notIn: ['Jane Doe', 'John Smith'] }
+    name: { $nin: ['Jane Doe', 'John Smith'] }
   }
 });
-```
-
-## Complex examples
-```typescript
-// Complex example with nested queries
-const queryWithNested = await Collect.records.find('author', {
-  where: {
-    name: { $startsWith: 'Jane' },
-    blog: {
-      $AND: [
-        { title: { $contains: 'Tech' } },
-        { post: { rating: { $gte: 4 } } }
-      ]
-    }
-  }
-});
-```
-```typescript
-// Example with nested relation and logical operators
-const nestedQuery = await Collect.records.find('author', {
-  where: {
-    name: { $startsWith: 'Post author' },
-    blog: {
-      $AND: [
-        { title: { $contains: 'Tech' } },
-        { post: { $OR: [{ rating: { $gte: 4 } }, { rating: { $lte: 2 } }] } }
-      ]
-    }
-  }
-});
-```
-```typescript
-// Complex example with $not and $notIn
-const queryWithEqAndNotIn = await Collect.records.find('author', {
-  where: {
-    married: { $not: false },
-    age: { $notIn: [20, 25, 30] }
-  }
-});
-```
-```typescript
-// Complex example with $gt for number and datetime
-const queryWithGtComplex = await Collect.records.find('post', {
-  where: {
-    rating: { $gt: 3 },
-    created: { $gt: { $year: 2023, $month: 1, $day: 1 } }
-  }
-});
-```
-```typescript
-// Basic example with $gte
-const queryWithGteDatetime = await Collect.records.find('post', {
-  where: {
-    created: { $gte: { $year: 2023, $month: 1, $day: 1 } }
-  }
-});
-```
-```typescript
-// Complex example with $notIn for string and number
-const queryWithNotInStringNumber = await Collect.records.find('author', {
-  where: {
-    name: { $notIn: ['Jane Doe', 'John Doe'] },
-    age: { $notIn: [30, 40, 50] }
-  }
-});
-```
-```typescript
-// Complex example with $in for string and number
-const queryWithInStringNumber = await Collect.records.find('author', {
-  where: {
-    name: { $in: ['Jane Doe', 'John Doe'] },
-    age: { $in: [30, 40, 50] }
-  }
-});
-```
-```typescript
-// Complex example with $not and $notIn
-const queryWithEqAndNotIn = await Collect.records.find('author', {
-    where: {
-        married: { $not: false },
-        age: { $notIn: [20, 25, 30] }
-    }
-});
-```
-```typescript
-// Complex example with multiple string operators
-const queryWithStringOperators = await Collect.records.find('post', {
-  where: {
-    $OR: [
-      { title: { $startsWith: 'Understanding' } },
-      { title: { $contains: 'Graph' } },
-      { title: { $endsWith: 'Databases' } }
-    ]
-  }
-});
-```
-
-```typescript
-// Complex example with nested queries
-const queryWithNested = await Collect.records.find('author', {
-  where: {
-    name: { $startsWith: 'Jane' },
-    blog: {
-      $AND: [
-        { title: { $contains: 'Tech' } },
-        { post: { rating: { $gte: 4 } } }
-      ]
-    }
-  }
-});
-
 ```
 
 ## Notes

@@ -38,33 +38,6 @@ find(
 
 **Examples:**
 
-*Basic Example:*
-```typescript
-const authors = await Author.find();
-console.log(authors);
-/*
-{
-  data: [
-    {
-      __id: 'author_id_1',
-      __label: 'author',
-      name: 'John Doe',
-      email: 'john.doe@example.com'
-    },
-    {
-      __id: 'author_id_2',
-      __label: 'author',
-      name: 'Jane Smith',
-      email: 'jane.smith@example.com'
-    }
-  ],
-  total: 2
-}
-*/
-
-```
-
-*Complex Example:*
 ```typescript
 const authors = await Author.find({
   where: { name: { $contains: 'John' } },
@@ -119,28 +92,10 @@ findOne(
 
 **Examples:**
 
-*Basic Example:*
-```typescript
-const author = await Author.findOne({ where: { email: 'john.doe@example.com' } });
-console.log(author);
-/*
-{
-  data: {
-    __id: 'author_id',
-    __label: 'author',
-    name: 'John Doe',
-    email: 'john.doe@example.com'
-  }
-}
-*/
-
-```
-
-*Complex Example:*
 ```typescript
 const author = await Author.findOne({
   where: {
-    $AND: [{ name: { $startsWith: 'Jane' } }, { email: { $contains: '@example.com' } }]
+    $and: [{ name: { $startsWith: 'Jane' } }, { email: { $contains: '@example.com' } }]
   },
   transaction
 });
@@ -182,24 +137,6 @@ findById(
 
 **Examples:**
 
-*Basic Example:*
-```typescript
-const author = await Author.findById('author_id');
-console.log(author);
-/*
-{
-  data: {
-    __id: 'author_id',
-    __label: 'author',
-    name: 'John Doe',
-    email: 'john.doe@example.com'
-  }
-}
-*/
-
-```
-
-*Complex Example:*
 ```typescript
 const transaction = await Collect.tx.begin();
 const author = await Author.findById('author_id', transaction);
@@ -217,84 +154,6 @@ console.log(author);
 */
 
 ```
-
-### Complex Example with Related Models
-
-Let's add a `Post` model and perform a series of operations involving both `Author` and `Post`.
-```typescript
-const Post = new CollectModel('post', {
-  created: { type: 'datetime', default: () => new Date().toISOString() },
-  title: { type: 'string' },
-  content: { type: 'string' },
-  rating: { type: 'number' }
-});
-
-// Register the Post model
-export const PostRepo = Collect.registerModel(Post);
-
-```
-
-**Steps:**
-
-1. Find an author by ID.
-2. Create a new `Post` and attach it to the `Author`.
-3. Find the created `Post` using a complex `where` condition.
-
-```typescript
-const transaction = await Collect.tx.begin();
-try {
-  // Step 1: Find an author by ID
-  const author = await Author.findById('author_id', transaction);
-
-  // Step 2: Create a new Post and attach it to the Author
-  const newPost = {
-    title: 'New Blog Post',
-    content: 'This is a new blog post content.',
-    rating: 4.5
-  };
-
-  const createdPost = await PostRepo.create(newPost, transaction);
-
-  await Author.attach(author.data.__id, {
-    model: 'post',
-    recordId: createdPost.data.__id
-  }, transaction);
-
-  // Step 3: Find the created Post using a complex where condition
-  const posts = await PostRepo.find({
-    where: {
-      $AND: [
-        { created: { $gte: '2023-01-01T00:00:00Z' } },
-        { rating: { $gte: 4 } }
-      ]
-    },
-    orderBy: { created: 'desc' }
-  }, transaction);
-
-  await transaction.commit();
-  console.log(posts);
-  /*
-  {
-    data: [
-      {
-        __id: 'post_id',
-        __label: 'post',
-        created: '2023-01-02T00:00:00Z',
-        title: 'New Blog Post',
-        content: 'This is a new blog post content.',
-        rating: 4.5
-      }
-    ],
-    total: 1
-  }
-  */
-} catch (error) {
-  await transaction.rollback();
-  throw error;
-}
-```
-
-This complex example demonstrates how to work with related models, perform transactions, and use advanced querying features.
 
 ## Conclusion
 

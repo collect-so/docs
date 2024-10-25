@@ -34,19 +34,7 @@ delete(
 
 **Examples:**
 
-*Basic Example with Author:*
-```typescript
-const deleteResponse = await Author.delete({ where: { name: 'John Doe' } });
-console.log(deleteResponse);
-/*
-{
-  success: true,
-  message: 'Records deleted successfully.'
-}
-*/
-```
-
-*Complex Example with Author:*
+*Example with Author:*
 ```typescript
 const transaction = await Collect.tx.begin();
 try {
@@ -65,19 +53,7 @@ try {
 }
 ```
 
-*Basic Example with Post:*
-```typescript
-const deleteResponse = await Post.delete({ where: { title: 'Old Blog Post' } });
-console.log(deleteResponse);
-/*
-{
-  success: true,
-  message: 'Records deleted successfully.'
-}
-*/
-```
-
-*Complex Example with Post:*
+*Example with Post:*
 ```typescript
 const transaction = await Collect.tx.begin();
 try {
@@ -96,26 +72,7 @@ try {
 }
 ```
 
-*Deleting Posts with `$OR` Operator:*
-```typescript
-const deleteResponse = await Post.delete({
-    where: {
-        $OR: [
-            { __id: 'post_id_1' },
-            { __id: 'post_id_2' }
-        ]
-    }
-});
-console.log(deleteResponse);
-/*
-{
-  success: true,
-  message: 'Records deleted successfully.'
-}
-*/
-```
-
-*Complex Deletion with Multiple Operators:*
+*Deletion with Multiple Operators:*
 ```typescript
 const deleteResponse = await Post.delete({
   where: {

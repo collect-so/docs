@@ -46,29 +46,6 @@ create(
 
 **Examples:**
 
-*Basic Example:*
-```typescript
-const newAuthor = {
-  name: 'John Doe',
-  email: 'john.doe@example.com'
-};
-
-const createdAuthor = await Author.create(newAuthor);
-console.log(createdAuthor);
-
-/*
-{
-  data: {
-    __id: 'generated_id',
-    __label: 'author',
-    name: 'John Doe',
-    email: 'john.doe@example.com'
-  }
-}
-*/
-```
-
-*Complex Example:*
 ```typescript
 const newAuthor = {
   name: 'Jane Smith',
@@ -123,37 +100,6 @@ createMany(
 
 **Examples:**
 
-*Basic Example:*
-```typescript
-const authors = [
-  { name: 'Alice Johnson', email: 'alice.johnson@example.com' },
-  { name: 'Bob Brown', email: 'bob.brown@example.com' }
-];
-
-const createdAuthors = await Author.createMany(authors);
-console.log(createdAuthors);
-/*
-{
-  data: [
-    {
-      __id: 'generated_id_1',
-      __label: 'author',
-      name: 'Alice Johnson',
-      email: 'alice.johnson@example.com'
-    },
-    {
-      __id: 'generated_id_2',
-      __label: 'author',
-      name: 'Bob Brown',
-      email: 'bob.brown@example.com'
-    }
-  ],
-  total: 2
-}
-*/
-```
-
-*Complex Example:*
 ```typescript
 const authors = [
   { name: 'Charlie Green', email: 'charlie.green@example.com' },
