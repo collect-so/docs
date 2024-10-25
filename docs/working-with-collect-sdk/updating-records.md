@@ -11,7 +11,6 @@ Updating records is a crucial operation for maintaining and modifying data withi
 
 - [Updating a Single Record](#updatebyid)
 - [Updating Multiple Records](#updating-multiple-records)
-- [Updating Records in a Transaction](#complex-example-with-transactions)
 
 ### `updateById`
 

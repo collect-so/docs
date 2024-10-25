@@ -10,7 +10,6 @@ Reading records involves fetching data from the database. The `CollectModel` cla
 ## Table of Contents
 
 - [Basic Querying](#find)
-- [Complex Query Executions](#complex-example-with-related-models)
 
 
 ### `find`
