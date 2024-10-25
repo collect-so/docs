@@ -40,25 +40,7 @@ updateById(
 
 **Examples:**
 
-*Basic Example with Author:*
-```typescript
-const updatedAuthor = await Author.updateById('author_id', {
-  name: 'John Doe Updated'
-});
-console.log(updatedAuthor);
-/*
-{
-  data: {
-    __id: 'author_id',
-    __label: 'author',
-    name: 'John Doe Updated',
-    email: 'john.doe@example.com'
-  }
-}
-*/
-```
-
-*Complex Example with Author:*
+*Example with Author:*
 ```typescript
 const transaction = await Collect.tx.begin();
 try {
@@ -83,27 +65,7 @@ try {
 }
 ```
 
-*Basic Example with Post:*
-```typescript
-const updatedPost = await PostRepo.updateById('post_id', {
-  title: 'Updated Blog Post Title'
-});
-console.log(updatedPost);
-/*
-{
-  data: {
-    __id: 'post_id',
-    __label: 'post',
-    created: '2023-01-02T00:00:00Z',
-    title: 'Updated Blog Post Title',
-    content: 'This is a new blog post content.',
-    rating: 4.5
-  }
-}
-*/
-```
-
-*Complex Example with Post:*
+*Example with Post:*
 ```typescript
 const transaction = await Collect.tx.begin();
 try {
@@ -137,34 +99,7 @@ To update multiple records, you can use a combination of `find` and `updateById`
 
 **Examples:**
 
-*Basic Example with Author:*
-```typescript
-const authorsToUpdate = await Author.find({ where: { name: 'John Doe' } });
-for (const author of authorsToUpdate.data) {
-  await Author.updateById(author.__id, { name: 'John Doe Updated' });
-}
-console.log(authorsToUpdate);
-/*
-{
-  data: [
-    {
-      __id: 'author_id_1',
-      __label: 'author',
-      name: 'John Doe Updated',
-      email: 'john.doe@example.com'
-    },
-    {
-      __id: 'author_id_2',
-      __label: 'author',
-      name: 'John Doe Updated',
-      email: 'john.doe@example.com'
-    }
-  ]
-}
-*/
-```
-
-*Complex Example with Post:*
+*Example with Post:*
 ```typescript
 const postsToUpdate = await PostRepo.find({ where: { rating: { $lt: 5 } } });
 const transaction = await Collect.tx.begin();
@@ -202,64 +137,6 @@ try {
   throw error;
 }
 ```
-
-### Complex Example with Transactions
-
-In this example, we'll update an `Author` and a `Post` within the same transaction. This ensures that either both updates succeed, or both are rolled back in case of an error.
-
-**Steps:**
-
-1. Begin a transaction.
-2. Update the `Author`.
-3. Update the `Post`.
-4. Commit the transaction if both updates succeed.
-5. Rollback the transaction if any update fails.
-
-```typescript
-const transaction = await Collect.tx.begin();
-try {
-  // Update the author
-  const updatedAuthor = await Author.updateById('author_id', {
-    name: 'Updated Author Name'
-  }, transaction);
-
-  // Update the post
-  const updatedPost = await PostRepo.updateById('post_id', {
-    title: 'Updated Post Title',
-    content: 'Updated content for the post.',
-    rating: 4.8
-  }, transaction);
-
-  await transaction.commit();
-  console.log(updatedAuthor);
-  console.log(updatedPost);
-  /*
-  {
-    data: {
-      __id: 'author_id',
-      __label: 'author',
-      name: 'Updated Author Name',
-      email: 'john.doe@example.com'
-    }
-  }
-  {
-    data: {
-      __id: 'post_id',
-      __label: 'post',
-      created: '2023-01-02T00:00:00Z',
-      title: 'Updated Post Title',
-      content: 'Updated content for the post.',
-      rating: 4.8
-    }
-  }
-  */
-} catch (error) {
-  await transaction.rollback();
-  throw error;
-}
-```
-
-This complex example demonstrates how to perform multiple updates atomically within a transaction.
 
 ### Conclusion
 
