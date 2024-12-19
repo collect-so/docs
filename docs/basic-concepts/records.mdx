@@ -363,6 +363,135 @@ it as a "dictionary", "map", "hash table", or "associative array" depending on y
 
 ---
 
+## Search with Data Aggregation
+<div className="grid xl:grid-cols-5 grid-cols-1 gap-8">
+    <div  className="xl:order-last col-span-2">
+        ### Endpoints
+        Search from root:
+        ```ts
+        POST /api/v1/records/search
+        ```
+        Search from specific Record:
+        ```ts
+        POST /api/v1/records/:id/search
+        ```
+        :::info
+        Note: When searching from a specific Record, replace `:id` with the actual ID of the Record you want to start the search from.
+        :::
+    </div>
+    <div className="col-span-3">
+        You can also return records related to a given Record (those that have a [Relation](/basic-concepts/relations) with that Record) during the search.
+        Sometimes, you may also need to perform mathematical operations on your data during the search, adding new dynamic fields to the response.
+
+        Below, you can see an example that will return all available shoe sizes and also add the minimum and maximum UK size.
+        ### Request
+
+        <Tabs defaultValue="sdk" >
+            <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="sdk">SDK</TabsTrigger>
+                <TabsTrigger value="api">API</TabsTrigger>
+            </TabsList>
+            <TabsContent value="sdk">
+                ```typescript
+                await CollectInstance.records.find("PRODUCT", {
+                    where: {
+                        title: { $contains: "Sneakers" },
+                        SIZE: {
+                            // Linking the aggregate field with the where condition
+                            $alias: "$size",
+                            uk: { $lte: 10 },
+                            qty: { $gt: 0 }
+                        }
+                    },
+                    aggregate: {
+                        // Add the necessary PRODUCT fields that need to be returned in the Response.
+                        title: "$record.title",
+                        price: "$record.price",
+                        // Return all sizes related to PRODUCT
+                        SIZE: {
+                            fn: 'collect',
+                            uniq: true,
+                            alias: '$size',
+                        },
+                        // Add a field with the minimum and maximum sizes for the found SIZE
+                        minSize: { fn: 'min', field: 'uk', alias: '$size' },
+                        maxSize: { fn: 'max', field: 'uk', alias: '$size' },
+                    },
+                })
+                ```
+            </TabsContent>
+            <TabsContent value="api">
+                ```javascript
+                {
+                    "labels": ["PRODUCT"],
+                    "where": {
+                        "title": { "$contains": "Sneakers" },
+                        "SIZE": {
+                            // Linking the aggregate field with the where condition
+                            "$alias": "$size",
+                            "uk": { "$lte": 10 },
+                            "qty": { "$gt": 0 }
+                        }
+                    },
+                    "aggregate": {
+                        // Add the necessary PRODUCT fields that need to be returned in the Response.
+                        "title": "$record.title",
+                        "price": "$record.price",
+                        // Return all sizes related to PRODUCT
+                        "SIZE": {
+                            "fn": 'collect',
+                            "uniq": true,
+                            "alias": '$size',
+                        },
+                        // Add fields with the minimum and maximum sizes for the found SIZE
+                        "minSize": { "fn": 'min', "field": 'uk', "alias": '$size' },
+                        "maxSize": { "fn": 'max', "field": 'uk', "alias": '$size' },
+                    }
+                    "limit": 1000,
+                    "offset": 0
+                }
+                ```
+            </TabsContent>
+        </Tabs>
+
+        ### Response
+        ```javascript
+        // CollectRecord[]
+        [
+            {
+                "__id": "0191b44a-c815-7d40-bf48-b2d1727670d4",
+                "__label": "PRODUCT",
+                "__proptypes": {
+                    "title": "string",
+                    "price": "number"
+                },
+                "title": 'Sneakers'
+                "price": 135,
+                "maxSize": 8,
+                "minSize": 3,
+                "SIZE": [
+                    {
+                        "__id": "0193dabd-c783-76f2-bb8f-c18ac915c91b",
+                        "__label": "SIZE",
+                        "uk": 7,
+                        "qty" 2,
+                        // Remaining SIZE properties
+                        "__proptypes": {
+                            "uk": "number",
+                            "qty": "number"
+                        },
+                    }
+                    // Other SIZE records
+                ]
+            },
+            // ...
+        ]
+        ```
+    </div>
+</div>
+
+---
+
 ## Get Record
 <div className="grid xl:grid-cols-5 grid-cols-1 gap-8">
   <div  className="xl:order-last col-span-2">
