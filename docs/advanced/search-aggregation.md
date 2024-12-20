@@ -21,9 +21,9 @@ Below you can see a detailed example of using different aggregations within a si
 ```typescript
 {
     where: {
-        rating: {
-            $gte: 1
-        },
+        name: {
+            $contains: 'John'
+        }
         comments: {
             $alias: '$comment',
             likes: {
@@ -76,10 +76,10 @@ You will also get data slices: the minimum number of likes on a comment and the 
 
 Additionally, you can set the number of returned comments in the response and, in this case, sort them by the most liked comments.
 
-## Параметры аггрегации данных
+## Data Aggregation Parameters
 
 ### `fn`
-Specifies the type of function to use — `collect`, `sum`, `count`, `max`, `min` или `avg`.
+Specifies the type of function to use — `collect`, `sum`, `count`, `max`, `min` or `avg`.
 ### `uniq`
 Specifies whether to consider duplicates when retrieving data.
 ### `limit`, `skip`
