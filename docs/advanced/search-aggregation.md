@@ -23,7 +23,7 @@ Below you can see a detailed example of using different aggregations within a si
     where: {
         name: {
             $contains: 'John'
-        }
+        },
         comments: {
             $alias: '$comment',
             likes: {
